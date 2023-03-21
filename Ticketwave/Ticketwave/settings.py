@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
-    'Authentication_Autherization',
+    'Authentication_Authorization',
 ]
 
 MIDDLEWARE = [
@@ -135,7 +135,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-#authentication_autheriazation
+#authentication_authoriazation
 
 
 OLD_PASSWORD_FIELD_ENABLED = True
@@ -164,9 +164,9 @@ LOGIN_URL = 'localhost' + '/auth/login' #os.environ.get('DOMAIN')
 
 
 
-ACCOUNT_ADAPTER = 'authentication_autheriazation.adapter.CustomAccountAdapter'
+ACCOUNT_ADAPTER = 'authentication_authoriazation.adapter.CustomAccountAdapter'
 REST_AUTH_REGISTER_SERIALIZERS = {
-    'REGISTER_SERIALIZER': 'authentication_autheriazation.serializers.CustomRegisterSerializer',
+    'REGISTER_SERIALIZER': 'authentication_authoriazation.serializers.CustomRegisterSerializer',
 }
 
 ACCOUNT_LOGOUT_ON_GET = True

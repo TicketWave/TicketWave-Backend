@@ -7,7 +7,8 @@ from dj_rest_auth.urls import LoginView, LogoutView, UserDetailsView, PasswordCh
 
 urlpatterns = [
     
-    path('auth/signup/', RegistrationView_func, name='account_signup'), #login + signp urls
+    #login + signp urls
+    path('auth/signup/', RegistrationView_func, name='account_signup'), 
     path('auth/password/reset/<username>/<useremail>/', send_password_reset_email, name='rest_password_reset'),
     path('auth/login/', LoginView.as_view(), name='rest_login'), #login needs email confirmation
     
@@ -19,11 +20,14 @@ urlpatterns = [
     path('auth/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     path('auth/token/refresh/', get_refresh_view().as_view(), name='token_refresh'),
     
+    #send and verify user email and activate account urls
     path('auth/activate_email/<uidb64>/<token>/', activate_email, name='activate_email'),
-    path('auth/send_verification_email/<int:user_pk>/', send_verification_email, name='send_verification_email'), #send and verify user email and activate account urls
+    path('auth/send_verification_email/<int:user_pk>/', send_verification_email, name='send_verification_email'), 
     
-    path('auth/google/', GoogleLogin.as_view()), #google login
+    #google login
+    path('auth/google/', GoogleLogin.as_view()), 
     
-    path('auth/account_inactive/', empty_view, name='account_inactive'), #reverse path to not crash with is_active=false
+    #reverse path to not crash with is_active=false
+    path('auth/account_inactive/', empty_view, name='account_inactive'), 
     
 ]

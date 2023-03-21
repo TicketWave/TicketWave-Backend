@@ -64,11 +64,15 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
 <<<<<<< HEAD
+<<<<<<< HEAD
     'Authentication_Autherization',
 >>>>>>> 816aa52 (settings + auth folder)
 =======
     'Authentication_Authorization',
 >>>>>>> 6dd0825 (fixed typos + email and password verification)
+=======
+    'authentication_authorization',
+>>>>>>> 33d78ae (fixed names)
 ]
 
 MIDDLEWARE = [

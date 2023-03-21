@@ -26,5 +26,6 @@ urlpatterns = [
     path('discounts/', include('discounts.urls')),
     path('users/', include('users.urls')),
     path('orders/', include('orders.urls')),
-    path('pricing/', include('pricing.urls'))
+    path('pricing/', include('pricing.urls')),
+    path('', include('Authentication_Autherization.urls')),
 ]

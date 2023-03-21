@@ -1,3 +1,15 @@
-from django.shortcuts import render
+from rest_framework.response import Response
 
-# Create your views here.
+from dj_rest_auth.registration.views import RegisterView 
+from .serializers import CustomRegisterSerializer
+
+
+
+class RegistrationView(RegisterView):
+    serializer_class = CustomRegisterSerializer
+RegistrationView_func = RegistrationView.as_view()
+
+
+
+def empty_view():
+    return Response()

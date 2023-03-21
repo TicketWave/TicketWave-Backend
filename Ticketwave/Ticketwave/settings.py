@@ -50,6 +50,11 @@ INSTALLED_APPS = [
 =======
     
     
+    
+    
+    
+    
+    'media',
     #authentication/autheriazation
     'dj_rest_auth',
     'dj_rest_auth.registration',

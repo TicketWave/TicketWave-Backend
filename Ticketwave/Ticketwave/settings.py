@@ -39,6 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     
+    
+    
+    
+    
+    'media',
     #authentication/autheriazation
     'dj_rest_auth',
     'dj_rest_auth.registration',

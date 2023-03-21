@@ -18,13 +18,13 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('events/', include('events.urls'))
-    path('venues/', include('venues.urls'))
-    path('ticket_groups/', include('ticket_groups.urls'))
-    path('ticket_classes/', include('ticket_classes.urls'))
-    path('categories/', include('categories.urls'))
-    path('discounts/', include('discounts.urls'))
-    path('users/', include('users.urls'))
-    path('orders/', include('orders.urls'))
+    path('events/', include('events.urls')),
+    path('venues/', include('venues.urls')),
+    path('ticket_groups/', include('ticket_groups.urls')),
+    path('ticket_classes/', include('ticket_classes.urls')),
+    path('categories/', include('categories.urls')),
+    path('discounts/', include('discounts.urls')),
+    path('users/', include('users.urls')),
+    path('orders/', include('orders.urls')),
     path('pricing/', include('pricing.urls'))
 ]

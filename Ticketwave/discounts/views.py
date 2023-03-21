@@ -1,4 +1,5 @@
 from django.http import JsonResponse
 
-def home(request):
+def listDiscounts(request):
+    
     return JsonResponse({'message': 'This is a test response.'})

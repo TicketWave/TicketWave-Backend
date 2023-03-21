@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     'Authentication_Autherization',
 >>>>>>> 816aa52 (settings + auth folder)
 =======
@@ -73,6 +74,9 @@ INSTALLED_APPS = [
 =======
     'authentication_authorization',
 >>>>>>> 33d78ae (fixed names)
+=======
+    'authentication',
+>>>>>>> 6c68f81 (rename folder)
 ]
 
 MIDDLEWARE = [

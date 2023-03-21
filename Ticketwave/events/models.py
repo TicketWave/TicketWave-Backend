@@ -1,5 +1,4 @@
 from django.db import models
-from discounts.models import Discounts
 
 # Create your models here.
 class Event(models.Model):
@@ -15,5 +14,4 @@ class Event(models.Model):
     online_event = models.BooleanField()
     hide_start_date = models.BooleanField()
     hide_end_date = models.BooleanField()
-    discounts = models.ManyToOneRel(Discounts.event_id)
     

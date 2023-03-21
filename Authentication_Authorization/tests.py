@@ -8,15 +8,14 @@ class Tests(unittest.TestCase):
 
     def runTest_register(self):
 
-        url = "http://localhost:8000/app2/auth/signup/"
+        url = "http://localhost:8000/auth/signup/"
         payload = json.dumps({
             "username": "ziadamr",
             "email": "ziadamr@gmail.com",
             "password1": "poiuytpoiuyt",
             "password2": "poiuytpoiuyt",
-            "reg_no": "123",
-            "department": "123",
-            "university": "123"
+            "is_public": True,
+            "image_id": 1
         })
         headers = {
             'Content-Type': 'application/json'
@@ -27,7 +26,7 @@ class Tests(unittest.TestCase):
         self.assertEqual(response.status_code, 200, "incorrect status code")
 
     def runTest_login(self):
-        url = "http://localhost:8000/app2/auth/login/"
+        url = "http://localhost:8000/auth/login/"
         payload = json.dumps({
             "email": "ziadamr@gmail.com",
             "password": "poiuytpoiuyt",
@@ -41,7 +40,7 @@ class Tests(unittest.TestCase):
         self.assertEqual(response.status_code, 200, "incorrect status code")
 
     def runTest_send_verification_email(self):
-        url = "http://localhost:8000/app2/auth/send_verification_email/1/"
+        url = "http://localhost:8000/auth/send_verification_email/1/"
         payload = json.dumps({})
         headers = {
             'Content-Type': 'application/json'
@@ -52,7 +51,7 @@ class Tests(unittest.TestCase):
         self.assertEqual(response.status_code, 200, "incorrect status code")
 
     def runTest_send_password_reset(self):
-        url = "http://localhost:8000/app2/auth/password/reset/ziadamr/ziadamr@gmail.com/"
+        url = "http://localhost:8000/auth/password/reset/ziadamr/ziadamr@gmail.com/"
         payload = json.dumps({})
         headers = {
             'Content-Type': 'application/json'

@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 78f049d (merge fixes)
     'categories',
     'discounts',
     'orders',
@@ -47,6 +50,7 @@ INSTALLED_APPS = [
     'ticket_groups',
     'users',
     'venues',
+<<<<<<< HEAD
 =======
     
     
@@ -54,6 +58,8 @@ INSTALLED_APPS = [
     
     
     
+=======
+>>>>>>> 78f049d (merge fixes)
     'media',
     #authentication/autheriazation
     'dj_rest_auth',

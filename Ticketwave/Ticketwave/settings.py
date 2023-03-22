@@ -46,16 +46,6 @@ INSTALLED_APPS = [
     'ticket_groups',
     'users',
     'venues',
-    'media',
-    #authentication/autheriazation
-    'dj_rest_auth',
-    'dj_rest_auth.registration',
-    'django.contrib.sites',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
-    'authentication',
 ]
 
 MIDDLEWARE = [
@@ -93,9 +83,9 @@ WSGI_APPLICATION = 'Ticketwave.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "djongo",
-        "NAME": "ticketwave",
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -140,85 +130,3 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-
-#authentication_authoriazation
-
-
-OLD_PASSWORD_FIELD_ENABLED = True
-LOGOUT_ON_PASSWORD_CHANGE = False
-PASSWORD_HASHERS = ['django.contrib.auth.hashers.BCryptSHA256PasswordHasher']
-
-ACCOUNT_USERNAME_REQUIRED = True
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'optional'  
-LOGIN_URL = 'http://localhost:8000/auth/login'
-ACCOUNT_AUTHENTICATION_METHOD = 'username'
-
-
-#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER =  'ticketwave001@gmail.com' #os.environ.get('EMAIL_ID') 
-EMAIL_HOST_PASSWORD =  'zxuhoelupwlvobem' #os.environ.get('EMAIL_PW')
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_FROM = 'ticketwave001@gmail.com'
-VERIFICATION_SUCCESS_TEMPLATE = None
-LOGIN_URL = 'localhost' + '/auth/login' #os.environ.get('DOMAIN')
-
-
-
-ACCOUNT_ADAPTER = 'authentication_authoriazation.adapter.CustomAccountAdapter'
-REST_AUTH_REGISTER_SERIALIZERS = {
-    'REGISTER_SERIALIZER': 'authentication_authoriazation.serializers.CustomRegisterSerializer',
-}
-
-ACCOUNT_LOGOUT_ON_GET = True
-
-REST_FRAMEWORK = {
-    
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ],
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
-    )
-}
-
-from datetime import timedelta
-
-REST_AUTH = {
-    
-    'USE_JWT': True,
-    'JWT_AUTH_COOKIE': 'my-app-auth',
-    'JWT_AUTH_REFRESH_COOKIE': 'my-refresh-token',
-    'JWT_AUTH_HTTPONLY':False,
-    
-    
-}
-SIMPLE_JWT ={
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
-}
-
-
-SOCIALACCOUNT_LOGIN_ON_GET=True
-AUTHENTICATION_BACKENDS = [
-    'allauth.account.auth_backends.AuthenticationBackend'
-    ]
-
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'SCOPE': [
-            'profile',
-            'email',
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
-        }
-    }
-}

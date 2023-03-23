@@ -14,4 +14,13 @@ class Event(models.Model):
     online_event = models.BooleanField()
     hide_start_date = models.BooleanField()
     hide_end_date = models.BooleanField()
-    
+
+class Event_private(models.Model):
+    listed = models.BooleanField()
+    shareable = models.BooleanField()
+    invite_only = models.BooleanField()
+    show_remaining = models.BooleanField()
+    password = models.TextField()
+    capacity = models.IntegerField()
+    capacity_is_custom = models.BooleanField()
+    event = models.ForeignKey(Event, on_delete=models.CASCADE) # once event is deleted, the private model is automatically deleted

@@ -1,11 +1,10 @@
 from django.db import models
-from ..events.models import Event
+from events.models import Event
 
 
 # Create your models here.
 
 class Media(models.Model):
-    
     page_place = models.CharField(max_length=50)
     type = models.CharField(max_length=50)
     url = models.CharField(max_length=150)

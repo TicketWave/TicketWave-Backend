@@ -37,10 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 78f049d (merge fixes)
     'categories',
     'discounts',
     'orders',
@@ -50,39 +46,16 @@ INSTALLED_APPS = [
     'ticket_groups',
     'users',
     'venues',
-<<<<<<< HEAD
-=======
-    
-    
-    
-    
-    
-    
-=======
->>>>>>> 78f049d (merge fixes)
     'media',
-    #authentication/autheriazation
+    'rest_framework',
     'dj_rest_auth',
     'dj_rest_auth.registration',
-    'django.contrib.sites',
+    'rest_framework.authtoken',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    'Authentication_Autherization',
->>>>>>> 816aa52 (settings + auth folder)
-=======
-    'Authentication_Authorization',
->>>>>>> 6dd0825 (fixed typos + email and password verification)
-=======
-    'authentication_authorization',
->>>>>>> 33d78ae (fixed names)
-=======
-    'authentication',
->>>>>>> 6c68f81 (rename folder)
+    'authentication'
 ]
 
 MIDDLEWARE = [
@@ -123,6 +96,9 @@ DATABASES = {
     "default": {
         "ENGINE": "djongo",
         "NAME": "ticketwave",
+        "CLIENT": {
+            'host': 'mongodb+srv://jemmy:SFmskb4tFnNfoueg@cluster0.dol1pt8.mongodb.net/?retryWrites=true&w=majority',   
+        }
     }
 }
 
@@ -199,9 +175,9 @@ LOGIN_URL = 'localhost' + '/auth/login' #os.environ.get('DOMAIN')
 
 
 
-ACCOUNT_ADAPTER = 'authentication_authoriazation.adapter.CustomAccountAdapter'
+ACCOUNT_ADAPTER = 'authentication.adapter.CustomAccountAdapter'
 REST_AUTH_REGISTER_SERIALIZERS = {
-    'REGISTER_SERIALIZER': 'authentication_authoriazation.serializers.CustomRegisterSerializer',
+    'REGISTER_SERIALIZER': 'authentication.serializers.CustomRegisterSerializer',
 }
 
 ACCOUNT_LOGOUT_ON_GET = True

@@ -4,6 +4,7 @@ from django.db import models
 
 
 class TicketClass(models.Model):
+    id = models.AutoField(primary_key=True)
     category = models.CharField(max_length=255)
     subcategory = models.CharField(max_length=255)
     name = models.CharField(max_length=255)

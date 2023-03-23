@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 class Users(AbstractUser):
   id=models.AutoField(primary_key=True)
+  name=models.CharField(max_length=80)
   first_name=models.CharField(max_length=80)
   last_name=models.CharField(max_length=80)
   is_public=models.BooleanField(default=True)

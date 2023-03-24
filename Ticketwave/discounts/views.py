@@ -1,8 +1,10 @@
+from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly
 from .models import Discounts
 from .serializers import DiscountsSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.views import APIView
 
 @api_view(['GET', 'POST'])
 def manageDiscounts(request):
@@ -19,7 +21,6 @@ def manageDiscounts(request):
         
 @api_view(['GET', 'PUT', 'DELETE'])
 def addDelUpDiscount(request, id):
-    
     try:
         discount = Discounts.objects.get(pk=id)
     except Discounts.DoesNotExist:
@@ -38,3 +39,22 @@ def addDelUpDiscount(request, id):
     elif request.method == 'DELETE':
         discount.delete()
         return Response(status = status.HTTP_204_NO_CONTENT)
+
+
+class ManageDiscounts(APIView
+                      ):
+    
+    permission_classes = [DjangoModelPermissionsOrAnonReadOnly,]
+    queryset = Discounts.objects.all()
+    def get(self, request):
+        discounts = Discounts.objects.all()
+        serializer = DiscountsSerializer(discounts, many=True)
+        return Response({'discounts': serializer.data})
+    
+    
+    def post(self, request, *args, **kwargs):
+        serializer = DiscountsSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'data': serializer.data}, status= status.HTTP_201_CREATED)
+        else: return Response({"errors":serializer.error_messages}) #Response(status=status.HTTP_400_BAD_REQUEST)

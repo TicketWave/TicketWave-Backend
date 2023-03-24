@@ -97,7 +97,8 @@ DATABASES = {
         "ENGINE": "djongo",
         "NAME": "ticketwave",
         "CLIENT": {
-            'host': 'mongodb+srv://jemmy:SFmskb4tFnNfoueg@cluster0.dol1pt8.mongodb.net/?retryWrites=true&w=majority',   
+            # 'host': 'mongodb+srv://jemmy:SFmskb4tFnNfoueg@cluster0.dol1pt8.mongodb.net/?retryWrites=true&w=majority',
+            'host': 'mongodb://localhost:27017', 
         }
     }
 }

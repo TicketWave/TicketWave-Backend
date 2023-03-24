@@ -12,13 +12,13 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Categories',
+            name='TicketClass',
             fields=[
                 ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=64, unique=True)),
-                ('short_name', models.CharField(max_length=18, unique=True)),
-                ('resource_uri', models.URLField(blank=True, null=True)),
-                ('parent_category', models.IntegerField(blank=True, null=True)),
+                ('category', models.CharField(max_length=255)),
+                ('subcategory', models.CharField(max_length=255)),
+                ('name', models.CharField(max_length=255)),
+                ('amount', models.PositiveIntegerField()),
             ],
         ),
     ]

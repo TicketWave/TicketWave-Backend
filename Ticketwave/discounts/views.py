@@ -16,3 +16,25 @@ def manageDiscounts(request):
         if serializer.is_valid():
             serializer.save()
             return Response({'data': serializer.data}, status= status.HTTP_201_CREATED)
+        
+@api_view(['GET', 'PUT', 'DELETE'])
+def addDelUpDiscount(request, id):
+    
+    try:
+        discount = Discounts.objects.get(pk=id)
+    except Discounts.DoesNotExist:
+        return Response(status= status.HTTP_404_NOT_FOUND)
+    
+    if request.method == 'GET':
+        serializer = DiscountsSerializer(discount)
+        return Response(data= serializer.data, status= status.HTTP_200_OK)
+    elif request.method == 'PUT':
+        serializer = DiscountsSerializer(discount, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status = status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'DELETE':
+        discount.delete()
+        return Response(status = status.HTTP_204_NO_CONTENT)

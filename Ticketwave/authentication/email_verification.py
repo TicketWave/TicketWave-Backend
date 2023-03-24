@@ -2,7 +2,6 @@ from django.http.response import HttpResponse
 from rest_framework.permissions import AllowAny
 from rest_framework.decorators import api_view, permission_classes
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework.request import Request
 from django.core.mail import EmailMessage
@@ -11,9 +10,10 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 import six
 
+User = get_user_model()
 
 class Email_Activation_TokenGenerator(PasswordResetTokenGenerator):
-    def _make_hash_value(self, user, timestamp):
+    def _make_hash_value(self, user: User, timestamp):
         return (
             six.text_type(user.pk) + six.text_type(timestamp) +
             six.text_type(user.is_active)

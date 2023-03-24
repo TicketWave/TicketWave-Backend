@@ -2,15 +2,17 @@ from django.contrib.auth.hashers import make_password
 from django.http.response import HttpResponse
 from rest_framework.permissions import AllowAny
 from rest_framework.decorators import api_view, permission_classes
-from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework.request import Request
+from django.contrib.auth import get_user_model
 from django.core.mail import EmailMessage
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 import six
 
+
+User = get_user_model()
 
 class password_TokenGenerator(PasswordResetTokenGenerator):
     def _make_hash_value(self, user, timestamp):

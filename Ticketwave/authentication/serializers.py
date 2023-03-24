@@ -3,7 +3,7 @@ from dj_rest_auth.registration.serializers import RegisterSerializer
 
 
 class CustomRegisterSerializer(RegisterSerializer):
-    is_public = serializers.BooleanField(write_only=True, required=True, default=True)
+    is_public = serializers.BooleanField(write_only=True, required=True)
     image_id = serializers.IntegerField(
         # required=True,
         write_only=True, default=-1)

@@ -35,7 +35,7 @@ def add_ticket_classes(request):
         return Response(status=status.HTTP_404_NOT_FOUND)
     
 
-@api_view(['POST'])
+@api_view(['PUT'])
 def update_tickets_classes(request, pk):
     ticket_class = TicketClass.objects.get(pk=pk)
     data = TicketClassSerializer(instance=ticket_class, data=request.data)

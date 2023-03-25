@@ -1,18 +1,18 @@
 from django.http import JsonResponse
+from rest_framework.views import APIView
 from django.contrib.auth.models import User
+from .serializers import UsersSerializer
+from .models import Users
 
 def home(request):
     return JsonResponse({'message': 'This is a test response.'})
-def user_profile(request):
-    user=request.user
-    # user_data={
-    #     'id'=user.id
-    #     'name'=user.name
-    #     'fist_name'=user.first_name
-    #     'last_name'=user.last_name
-    #     'is_public'=user.is_public
-    #     'image_id'=user.image_id
-    #     'email'=user_emails.email
-    #     'verified'=user_emails.verified
-    # }
-    return JsonResponse(user_data)
+class UserById(APIView):
+   def get(self, request, id):
+       user = User.objects.get(pk=id)
+       serializer = UsersSerializer(user)
+       return Response(serializer.data)
+class UserProfile(APIView):
+    def get(self, request):
+        user = request.user
+        serializer = UsersSerializer(user)
+        return Response(serializer.data)

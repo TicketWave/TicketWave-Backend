@@ -1,0 +1,85 @@
+.. authentication_doc documentation master file, created by
+   sphinx-quickstart on Sat Mar 25 01:53:52 2023.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to authentication_doc's documentation!
+==============================================
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+
+Functions
+---------
+
+.. autofunction:: send_password_reset_email
+
+.. autofunction:: send_verification_email
+
+.. autofunction:: activate_email
+
+
+send_password_reset_email(request, username, useremail):
+    """
+    Send a password reset email to the specified user.
+    
+    Parameters
+    ----------
+    :param request: The request object.
+    :type request: HttpRequest
+    :param username: The username of the user.
+    :type username: str
+    :param useremail: The email address of the user.
+    :type useremail: str
+
+    Returns
+    -------
+    :return: The result of sending the email.
+    :rtype: HttpRequest
+    """
+
+send_verification_email(request: Request, user_pk):
+    """
+    Send a verification email to the specified user.
+    
+    Parameters
+    ----------
+    :param request: The request object.
+    :type request: Request
+    :param user_pk: The primary key of the user.
+    :type user_pk: int
+
+    Returns
+    -------
+    :return: The result of sending the email.
+    :rtype: HttpRequest
+    """
+
+activate_email(request, uidb64, token):
+    """
+    Activate the user's email address.
+
+    Parameters
+    ----------
+    :param request: The request object.
+    :type request: HttpRequest
+    :param uidb64: The user's ID encoded in base 64.
+    :type uidb64: str
+    :param token: The token for email activation.
+    :type token: str
+
+    Returns
+    -------
+    :return: The result of sending the email.
+    :rtype: HttpRequest
+    """

@@ -5,6 +5,8 @@ from .serializers import CustomRegisterSerializer
 
 
 class RegistrationView(RegisterView):
+    authentication_classes=[]
+    permission_classes=[]
     serializer_class = CustomRegisterSerializer
 
 

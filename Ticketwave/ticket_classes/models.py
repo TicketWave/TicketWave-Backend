@@ -10,5 +10,9 @@ class TicketClass(models.Model):
     amount = models.PositiveIntegerField()
  
     def __str__(self) -> str:
+<<<<<<< HEAD
         return self.name
     
+=======
+        return self.name
+>>>>>>> a9e624436dab9ba50216ee07b87c0a3a10f22ce0

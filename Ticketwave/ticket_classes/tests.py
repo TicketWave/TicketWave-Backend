@@ -49,4 +49,8 @@ class TicketClassTestCase(TestCase):
             'Content-Type':'application/json'    #specify content type as json object
         }
         response= requests.put(url=url,data=data,headers=headers)
+<<<<<<< HEAD
         self.assertEqual(response.status_code, 200) 
+=======
+        self.assertEqual(response.status_code, 200) 
+>>>>>>> a9e624436dab9ba50216ee07b87c0a3a10f22ce0

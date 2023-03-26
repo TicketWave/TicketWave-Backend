@@ -11,7 +11,8 @@ class CustomAccountAdapter(DefaultAccountAdapter):
             user = super().save_user(request, user, form, commit)
             
             data = form.cleaned_data
-            #user.is_public = data.get('is_public')
+            user.is_public = data.get('is_public')
+            user.image_id = data.get('image_id')
 
             user.is_active = False
             user.save()

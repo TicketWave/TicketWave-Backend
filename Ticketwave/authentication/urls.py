@@ -1,7 +1,7 @@
 from django.urls import path, include, re_path
-from app2.views import RegistrationView_func, empty_view
-from app2.email_verification import activate_email, send_verification_email
-from app2.passwordverification import send_password_reset_email
+from .views import RegistrationView_func, empty_view
+from .email_verification import activate_email, send_verification_email
+from .passwordverification import send_password_reset_email
 from .adapter import GoogleLogin
 from dj_rest_auth.urls import LoginView, LogoutView, UserDetailsView, PasswordChangeView, get_refresh_view, TokenVerifyView
 

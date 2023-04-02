@@ -1,8 +1,8 @@
 from django.db.models import fields
 from rest_framework import serializers
-from .models import TicketClass
+from .models import Ticket
 
-class TicketClassSerializer(serializers.ModelSerializer):
+class TicketSerializer(serializers.ModelSerializer):
 	class Meta:
-		model = TicketClass
+		model = Ticket
 		fields = ('category', 'subcategory', 'name', 'amount')

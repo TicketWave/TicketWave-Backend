@@ -13,4 +13,4 @@ dj-rest-auth
 dj-rest-auth[with_social]
 social-auth-app-django
 six
-
+django-filter==23.1

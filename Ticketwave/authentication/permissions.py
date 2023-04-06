@@ -15,6 +15,6 @@ class Is_eventowner_or_readonly(permissions.BasePermission):
         try:
             # Write permissions are only allowed to the owner of the snippet.
             # obj."user" (OWNER) NEEDS TO BE DEFINED FOR event
-            return obj.user == request.user
+            return obj.owner == request.user
         except:
             return False

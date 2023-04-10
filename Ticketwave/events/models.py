@@ -11,7 +11,7 @@ class Event(models.Model):
     name = models.CharField(max_length=80)
     summary = models.TextField(blank=True)
     description = models.TextField(blank=True)
-    url = models.URLField()
+    url = models.URLField(blank=True)
     start = models.DateTimeField()  # "2004-03-15 12:01" format value example
     end = models.DateTimeField()
     # changes automatically as added

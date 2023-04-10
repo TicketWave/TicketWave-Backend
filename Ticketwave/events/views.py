@@ -73,11 +73,99 @@ class event_List(ListAPIView):
                 elif waitlist.lower() == 'false':
                     queryset = queryset.filter(waitlist__in=[False])
 
+            age_restriction = self.request.query_params.get(
+                'age_restriction', None)
+            if age_restriction is not None:
+                if age_restriction.lower() == 'true':
+                    queryset = queryset.filter(age_restriction__in=[True])
+                elif age_restriction.lower() == 'false':
+                    queryset = queryset.filter(age_restriction__in=[False])
+
         except:
             # pass
             print("error happened while grabbing query params for event_List view")
 
         return queryset
+
+
+class event_count_query(ListAPIView):
+    queryset = Event.objects.all()
+
+    serializer_class = event_Serializer
+    permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
+    pagination_class = StandardResultsSetPagination
+    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filterset_class = eventFilter
+    search_fields = ['^name']
+
+    def get_queryset(self):
+
+        queryset = Event.objects.all()
+
+        try:
+            online_event = self.request.query_params.get('online_event', None)
+            if online_event is not None:
+                if online_event.lower() == 'true':
+                    queryset = queryset.filter(online_event__in=[True])
+                elif online_event.lower() == 'false':
+                    queryset = queryset.filter(online_event__in=[False])
+
+            hide_start_date = self.request.query_params.get(
+                'hide_start_date', None)
+            if hide_start_date is not None:
+                if hide_start_date.lower() == 'true':
+                    queryset = queryset.filter(hide_start_date__in=[True])
+                elif hide_start_date.lower() == 'false':
+                    queryset = queryset.filter(hide_start_date__in=[False])
+
+            hide_end_date = self.request.query_params.get(
+                'hide_end_date', None)
+            if hide_end_date is not None:
+                if hide_end_date.lower() == 'true':
+                    queryset = queryset.filter(hide_end_date__in=[True])
+                elif hide_end_date.lower() == 'false':
+                    queryset = queryset.filter(hide_end_date__in=[False])
+
+            free = self.request.query_params.get('free', None)
+            if free is not None:
+                if free.lower() == 'true':
+                    queryset = queryset.filter(free__in=[True])
+                elif free.lower() == 'false':
+                    queryset = queryset.filter(free__in=[False])
+
+            listed = self.request.query_params.get('listed', None)
+            if listed is not None:
+                if listed.lower() == 'true':
+                    queryset = queryset.filter(listed__in=[True])
+                elif listed.lower() == 'false':
+                    queryset = queryset.filter(listed__in=[False])
+
+            waitlist = self.request.query_params.get('waitlist', None)
+            if waitlist is not None:
+                if waitlist.lower() == 'true':
+                    queryset = queryset.filter(waitlist__in=[True])
+                elif waitlist.lower() == 'false':
+                    queryset = queryset.filter(waitlist__in=[False])
+
+            age_restriction = self.request.query_params.get(
+                'age_restriction', None)
+            if age_restriction is not None:
+                if age_restriction.lower() == 'true':
+                    queryset = queryset.filter(age_restriction__in=[True])
+                elif age_restriction.lower() == 'false':
+                    queryset = queryset.filter(age_restriction__in=[False])
+
+        except:
+            # pass
+            print("error happened while grabbing query params for event_List view")
+
+        return queryset
+
+    def get(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+        count = queryset.count()
+
+        return Response({'count': count}, status=200)
 
 
 class event_increment_view_counter(UpdateAPIView):
@@ -94,7 +182,7 @@ class event_increment_view_counter(UpdateAPIView):
 
 
 class follow_event(APIView):
-    #permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
     def post(self, request, event_id):
         user = request.user
@@ -142,7 +230,7 @@ class event_Update(UpdateAPIView):
     queryset = Event.objects.all()
     lookup_field = 'pk'
     serializer_class = event_private_Serializer
-    # permission_classes = [IsAuthenticated, Is_eventowner_or_readonly] #[AllowAny]#
+    # permission_classes = [IsAuthenticated, Is_eventowner_or_readonly]
 
     def put(self, request, *args, **kwargs):
         kwargs['partial'] = True
@@ -152,16 +240,16 @@ class event_Update(UpdateAPIView):
 class event_Destroy(DestroyAPIView):
     queryset = Event.objects.all()
     serializer_class = event_private_Serializer
-    #permission_classes = [IsAuthenticated, Is_eventowner_or_readonly]
+    # permission_classes = [IsAuthenticated, Is_eventowner_or_readonly]
 
 
 class event_Create(CreateAPIView):
     queryset = Event.objects.all()
     serializer_class = event_private_Serializer
-    #permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
 
 class event_private_Retrieve(RetrieveAPIView):
     queryset = Event.objects.all()
     serializer_class = event_private_Serializer
-    #permission_classes = [IsAuthenticated, Is_eventowner]
+    # permission_classes = [IsAuthenticated, Is_eventowner]

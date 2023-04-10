@@ -8,6 +8,7 @@ class eventFilter(filters.FilterSet):
         model = Event
 
         fields = {
+            'id': ['exact', 'in'],
             'name': ['exact'],
             'owner': ['exact'],
             'category': ['exact'],
@@ -18,10 +19,16 @@ class eventFilter(filters.FilterSet):
             'created': ['exact', 'gte', 'lte'],
             'changed': ['exact', 'gte', 'lte'],
 
+            'category': ['exact', 'in'],
             'category__parent_category': ['exact'],
-            # 'venue__address': ['exact', 'in'],
-            # 'venue__latitude': ['gte', 'lte'],
-            # 'venue__longitude': ['gte', 'lte'],
+
+            'venue': ['exact', 'in'],
+            'venue__name': ['exact'],
+            'venue__city': ['exact'],
+            'venue__country': ['exact'],
+            'venue__address': ['exact'],
+            'venue__latitude': ['gte', 'lte'],
+            'venue__longitude': ['gte', 'lte'],
 
         }
 

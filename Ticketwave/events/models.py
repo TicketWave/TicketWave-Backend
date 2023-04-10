@@ -1,6 +1,7 @@
 from django.db import models
 from users.models import Users
 from categories.models import Categories
+from venues.models import Venue
 from django.core.validators import MinValueValidator
 
 # Create your models here.
@@ -25,14 +26,16 @@ class Event(models.Model):
     waitlist = models.BooleanField(default=False)
     view_counter = models.IntegerField(
         default=0, validators=[MinValueValidator(0)])
+    age_restriction = models.BooleanField(default=False)
 
     owner = models.ForeignKey(
-        Users, on_delete=models.CASCADE, default=-1, related_name='event')
+        Users, on_delete=models.CASCADE, default=1, related_name='event')
     category = models.ForeignKey(
-        Categories, on_delete=models.SET_DEFAULT, default=-1, related_name='event')
+        Categories, on_delete=models.SET_DEFAULT, default=1, related_name='event')
 
     followers = models.ManyToManyField(Users, related_name='following_event')
-    #venue = models.OneToOneField(Venue, on_delete=models.SET_DEFAULT, default=-1, related_name='event')
+    venue = models.OneToOneField(
+        Venue, on_delete=models.SET_DEFAULT, default=1, related_name='event')
 
     # private fields will limit access to by serializer
 

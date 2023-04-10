@@ -27,10 +27,12 @@ class Is_eventowner(permissions.BasePermission):
 
     def has_object_permission(self, request, view, obj):
         # Instance must have an attribute named `owner`.
-        try:
-            return obj.owner == request.user
-        except:
-            return False
+        if request.user.is_authenticated:
+            try:
+                return obj.owner == request.user
+            except:
+                return False
+        else: return False
         
 class Is_orderowner(permissions.BasePermission):
     """
@@ -39,10 +41,12 @@ class Is_orderowner(permissions.BasePermission):
 
     def has_object_permission(self, request, view, obj):
         # Instance must have an attribute named `owner`.
-        try:
-            return obj.user_id == request.user
-        except:
-            return False
+        if request.user.is_authenticated:
+            try:
+                return obj.user_id == request.user
+            except:
+                return False
+        else: return False
         
 class Is_venueowner(permissions.BasePermission):
     """
@@ -51,7 +55,10 @@ class Is_venueowner(permissions.BasePermission):
 
     def has_object_permission(self, request, view, obj):
         # Instance must have an attribute named `owner`.
-        try:
-            return obj.event.owner_id == request.user.id
-        except ObjectDoesNotExist:
-            return False
+        
+        if request.user.is_authenticated:
+            try:
+                return obj.event.owner_id == request.user.id
+            except ObjectDoesNotExist:
+                return False
+        else: return False

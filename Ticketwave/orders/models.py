@@ -15,7 +15,7 @@ class Order(models.Model):
     cost = models.IntegerField()
     # changes automatically as added
     created = models.DateTimeField(auto_now_add=True)
-    #message_on_confirmation = models.TextField(null=True)
+    # message_on_confirmation = models.TextField(null=True)
 
     event = models.ForeignKey(
         Event, on_delete=models.CASCADE, related_name='order')

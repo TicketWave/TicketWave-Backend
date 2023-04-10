@@ -1,4 +1,4 @@
-from .views import order_Create, order_Destroy, order_List, order_Retrieve, order_Update, order_count_by_event
+from .views import order_Create, order_Destroy, order_List, order_Retrieve, order_Update, order_count_by_event, order_count_query
 from django.urls import path
 
 
@@ -11,5 +11,6 @@ urlpatterns = [
     path('update/<pk>/', order_Update.as_view()),
 
     path('retrieve_event_order_count/<int:event>/',
-         order_count_by_event.as_view()),  # test this
+         order_count_by_event.as_view()),
+    path('order_count_query/', order_count_query.as_view()),
 ]

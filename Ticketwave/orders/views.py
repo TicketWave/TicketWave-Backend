@@ -24,9 +24,25 @@ class order_List(ListAPIView):
     ordering_fields = ['cost', 'created', 'first_name', 'last_name', 'status']
 
 
+class order_count_query(ListAPIView):
+
+    queryset = Order.objects.all()
+
+    serializer_class = order_Serializer
+    permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = orderfilter
+
+    def get(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+        count = queryset.count()
+
+        return Response({'count': count}, status=200)
+
+
 class order_count_by_event(APIView):
     queryset = Order.objects.all()
-    #permission_classes = [IsAuthenticated, Is_orderowner]
+    # permission_classes = [IsAuthenticated, Is_orderowner]
 
     def get(self, request, event, *args, **kwargs):
         count = self.queryset.filter(event=event).count()
@@ -37,14 +53,14 @@ class order_count_by_event(APIView):
 class order_Retrieve(RetrieveAPIView):
     queryset = Order.objects.all()
     serializer_class = order_Serializer
-    #permission_classes = [IsAuthenticated, Is_orderowner]
+    # permission_classes = [IsAuthenticated, Is_orderowner]
 
 
 class order_Update(UpdateAPIView):
     queryset = Order.objects.all()
     lookup_field = 'pk'
     serializer_class = order_Serializer
-    #permission_classes = [IsAuthenticated, Is_orderowner]
+    # permission_classes = [IsAuthenticated, Is_orderowner]
 
     def put(self, request, *args, **kwargs):
         kwargs['partial'] = True
@@ -54,10 +70,10 @@ class order_Update(UpdateAPIView):
 class order_Destroy(DestroyAPIView):
     queryset = Order.objects.all()
     serializer_class = order_Serializer
-    #permission_classes = [IsAuthenticated, Is_orderowner]
+    # permission_classes = [IsAuthenticated, Is_orderowner]
 
 
 class order_Create(CreateAPIView):
     queryset = Order.objects.all()
     serializer_class = order_Serializer
-    #permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]

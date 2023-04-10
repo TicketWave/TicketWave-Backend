@@ -8,6 +8,7 @@ class orderfilter(filters.FilterSet):
         model = Order
 
         fields = {
+            'id': ['exact', 'in'],
             'created': ['exact', 'gte', 'lte'],
             'first_name': ['exact'],
             'last_name': ['exact'],

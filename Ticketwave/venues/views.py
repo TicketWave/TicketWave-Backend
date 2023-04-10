@@ -6,6 +6,7 @@ from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, 
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import OrderingFilter
 from rest_framework.filters import SearchFilter
+from authentication.permissions import Is_venueowner
 from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly, IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -31,7 +32,7 @@ class venue_Update(UpdateAPIView):
     queryset = Venue.objects.all()
     lookup_field = 'pk'
     serializer_class = venue_Serializer
-    #permission_classes = [IsAuthenticated, Is_eventowner_or_readonly]
+    #permission_classes = [IsAuthenticated, Is_venueowner]
     
     def put(self, request, *args, **kwargs):
         kwargs['partial'] = True
@@ -40,7 +41,7 @@ class venue_Update(UpdateAPIView):
 class venue_Destroy(DestroyAPIView):
     queryset = Venue.objects.all()
     serializer_class = venue_Serializer
-    #permission_classes = [IsAuthenticated, Is_eventowner_or_readonly]
+    #permission_classes = [IsAuthenticated, Is_venueowner]
 
 class venue_Create(CreateAPIView):
     queryset = Venue.objects.all()

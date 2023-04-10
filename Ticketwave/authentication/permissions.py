@@ -1,5 +1,6 @@
 from rest_framework import permissions
 from rest_framework.request import Request
+from django.core.exceptions import ObjectDoesNotExist
 
 
 class Is_eventowner_or_readonly(permissions.BasePermission):
@@ -17,4 +18,40 @@ class Is_eventowner_or_readonly(permissions.BasePermission):
             # obj."user" (OWNER) NEEDS TO BE DEFINED FOR event
             return obj.owner == request.user
         except:
+            return False
+        
+class Is_eventowner(permissions.BasePermission):
+    """
+    Custom permission to only allow owners of an object to view/read it.
+    """
+
+    def has_object_permission(self, request, view, obj):
+        # Instance must have an attribute named `owner`.
+        try:
+            return obj.owner == request.user
+        except:
+            return False
+        
+class Is_orderowner(permissions.BasePermission):
+    """
+    Custom permission to only allow owners of an object to view/read it.
+    """
+
+    def has_object_permission(self, request, view, obj):
+        # Instance must have an attribute named `owner`.
+        try:
+            return obj.user_id == request.user
+        except:
+            return False
+        
+class Is_venueowner(permissions.BasePermission):
+    """
+    Custom permission to only allow owners of an object to view/read it.
+    """
+
+    def has_object_permission(self, request, view, obj):
+        # Instance must have an attribute named `owner`.
+        try:
+            return obj.event.owner_id == request.user.id
+        except ObjectDoesNotExist:
             return False

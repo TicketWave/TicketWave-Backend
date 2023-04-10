@@ -1,5 +1,6 @@
 from dj_rest_auth.registration.views import SocialLoginView
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
+from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
 from allauth.account.adapter import DefaultAccountAdapter
 from django.contrib.auth.hashers import make_password
 
@@ -27,5 +28,8 @@ class CustomAccountAdapter(DefaultAccountAdapter):
 class GoogleLogin(SocialLoginView):  # if you want to use Implicit Grant, use this
     adapter_class = GoogleOAuth2Adapter
 
-# for front end get token from this url (token or code)  and post it to /auth/google
+# for front end, login happens from this url template and redirect it to /auth/google
 # https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=<CALLBACK_URL_YOU_SET_ON_GOOGLE>&prompt=consent&response_type=token&client_id=<YOUR CLIENT ID>&scope=openid%20email%20profile
+
+class FacebookLogin(SocialLoginView):
+    adapter_class = FacebookOAuth2Adapter

@@ -24,8 +24,9 @@ urlpatterns = [
     path('auth/send_verification_email/<int:user_pk>/', send_verification_email, name='send_verification_email'), 
     
     #social logins (google login and facebook login)
-    path('auth/google/', GoogleLogin.as_view()), 
-    path('auth/facebook/', FacebookLogin.as_view(), name='fb_login'),
+    path(r'auth/google/login/$', GoogleLogin.as_view(),name='google_login'), 
+    path(r'auth/facebook/login/$', FacebookLogin.as_view(), name='facebook_login'),
+    path(r'^accounts/', include('allauth.urls')),
     
     #reverse path to not crash with is_active=false
     path('auth/account_inactive/', empty_view, name='account_inactive'), 

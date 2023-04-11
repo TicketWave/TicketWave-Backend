@@ -1,4 +1,5 @@
 from .models import Event
+from orders.models import Order
 from .serializers import event_Serializer, event_private_Serializer, IncrementViewSerializer
 from .filters import eventFilter
 from .pagination import StandardResultsSetPagination
@@ -219,7 +220,26 @@ class event_follower_count(APIView):
         follower_count = event.followers.count()
         return Response({'follower_count': follower_count})
 
+def check_order_status(event):
+    orders = Order.objects.filter(event=event)
+    for order in orders:
+        if order.status == 'pending' or order.status == 'completed':
+            return False
+    return True
 
+class event_cancel(APIView):
+    def get(self, request, event_id):
+        try:
+            event = Event.objects.get(id=event_id)
+            result = check_order_status(event)
+            if result:
+                serializer = event_Serializer(event, data={'status': 'canceled'}, partial=True)
+                if serializer.is_valid():
+                    serializer.save()
+            return Response({'success': result})
+        except:
+            return Response(status=400)
+    
 class event_Retrieve(RetrieveAPIView):
     queryset = Event.objects.all()
     serializer_class = event_Serializer

@@ -157,7 +157,7 @@ PASSWORD_HASHERS = ['django.contrib.auth.hashers.BCryptSHA256PasswordHasher']
 
 ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'optional'  
+ACCOUNT_EMAIL_VERIFICATION = 'none'  
 #LOGIN_URL = 'http://localhost:8000/auth/login'
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
 
@@ -212,7 +212,6 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
     'django.contrib.auth.backends.ModelBackend',
     ]
-
 #LOGIN_REDIRECT_URL = "/"  #if you succeed in login, you'll be redirected to the main page.
 
 SOCIALACCOUNT_PROVIDERS = {

@@ -8,6 +8,16 @@ from django.core.validators import MinValueValidator
 
 
 class Event(models.Model):
+    
+    status_choices = [
+        ('draft', 'draft'),
+        ('live', 'live'),
+        ('started', 'started'),
+        ('ended', 'ended'),
+        ('completed', 'completed'),
+        ('canceled', 'canceled'),
+    ]
+    
     name = models.CharField(max_length=80)
     summary = models.TextField(blank=True)
     description = models.TextField(blank=True)
@@ -18,7 +28,7 @@ class Event(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     # changes automatically as saved
     changed = models.DateTimeField(auto_now=True)
-    status = models.TextField(blank=True)
+    status = models.CharField(max_length=16, default='draft', choices=status_choices)
     online_event = models.BooleanField()
     hide_start_date = models.BooleanField()
     hide_end_date = models.BooleanField()

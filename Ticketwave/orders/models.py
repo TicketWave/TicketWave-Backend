@@ -6,12 +6,19 @@ from users.models import Users
 
 
 class Order(models.Model):
+    
+    status_choices = [
+        ('started', 'started'),
+        ('pending', 'pending'),
+        ('placed', 'placed'),
+        ('abandoned', 'abandoned'),
+    ]
 
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     email = models.EmailField()
     promo_code = models.TextField(null=True)
-    status = models.TextField(blank=True)
+    status = models.CharField(max_length=16, default='pending', choices=status_choices)
     cost = models.IntegerField()
     # changes automatically as added
     created = models.DateTimeField(auto_now_add=True)

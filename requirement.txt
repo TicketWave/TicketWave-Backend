@@ -5,6 +5,7 @@ django-cors-headers
 djongo
 sqlparse==0.2.4
 pymongo==3.12.3
+pymongo[srv]
 psycopg2
 django[bcrypt]
 django-cors-headers

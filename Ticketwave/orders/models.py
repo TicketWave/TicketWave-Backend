@@ -28,6 +28,8 @@ class Order(models.Model):
         Event, on_delete=models.CASCADE, related_name='order')
     user = models.ForeignKey(
         Users, on_delete=models.CASCADE, related_name='order')
+    #attendee = models.ForeignKey(
+    #    Attendee, on_delete=models.CASCADE, related_name='order')
 
     def __str__(self):
         return self.first_name + self.last_name

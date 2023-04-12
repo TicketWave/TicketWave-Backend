@@ -272,11 +272,15 @@ class event_unpublish(APIView):
         try:
             event = Event.objects.get(id=event_id)
             result = check_order_status(event)
-            if result:
-                serializer = event_Serializer(event, data={'status': 'canceled'}, partial=True)
+            if result :
+                serializer = event_Serializer(event, data={
+                    'status': 'canceled',
+                    'publish': False,
+                    }, partial=True)
                 if serializer.is_valid():
                     serializer.save()
-            return Response({'unpublished': result}, status=200)
+                return Response({'unpublished': True}, status=200)
+            else: return Response({'unpublished': False}, status=400)
         except:
             return Response(status=400)
         
@@ -286,11 +290,19 @@ class event_publish(APIView):
         try:
             event = Event.objects.get(id=event_id)
             result = check_publish_requirements(event)
-            if result:
-                serializer = event_Serializer(event, data={'status': 'live'}, partial=True)
+            start = self.request.data.get('published', None)
+            end = self.request.data.get('published', None)
+            if result and start != None and end != None:
+                serializer = event_Serializer(event, data={
+                    'status': 'live',
+                    'publish': True,
+                    'start': start,
+                    'end': end
+                }, partial=True)
                 if serializer.is_valid():
                     serializer.save()
-            return Response({'published': result}, status=200)
+                return Response({'published': True}, status=200)
+            else: return Response({'published': False}, status=400)
         except:
             return Response(status=400)
         

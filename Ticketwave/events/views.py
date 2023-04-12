@@ -81,6 +81,22 @@ class event_List(ListAPIView):
                     queryset = queryset.filter(age_restriction__in=[True])
                 elif age_restriction.lower() == 'false':
                     queryset = queryset.filter(age_restriction__in=[False])
+                    
+            fully_booked = self.request.query_params.get(
+                'fully_booked', None)
+            if fully_booked is not None:
+                if fully_booked.lower() == 'true':
+                    queryset = queryset.filter(fully_booked__in=[True])
+                elif fully_booked.lower() == 'false':
+                    queryset = queryset.filter(fully_booked__in=[False])
+                    
+            published = self.request.query_params.get(
+                'published', None)
+            if published is not None:
+                if published.lower() == 'true':
+                    queryset = queryset.filter(published__in=[True])
+                elif published.lower() == 'false':
+                    queryset = queryset.filter(published__in=[False])
 
         except:
             # pass
@@ -155,6 +171,22 @@ class event_count_query(ListAPIView):
                     queryset = queryset.filter(age_restriction__in=[True])
                 elif age_restriction.lower() == 'false':
                     queryset = queryset.filter(age_restriction__in=[False])
+            
+            fully_booked = self.request.query_params.get(
+                'fully_booked', None)
+            if fully_booked is not None:
+                if fully_booked.lower() == 'true':
+                    queryset = queryset.filter(fully_booked__in=[True])
+                elif fully_booked.lower() == 'false':
+                    queryset = queryset.filter(fully_booked__in=[False])
+                    
+            published = self.request.query_params.get(
+                'published', None)
+            if published is not None:
+                if published.lower() == 'true':
+                    queryset = queryset.filter(published__in=[True])
+                elif published.lower() == 'false':
+                    queryset = queryset.filter(published__in=[False])
 
         except:
             # pass

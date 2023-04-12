@@ -14,6 +14,9 @@ class eventFilter(filters.FilterSet):
             'category': ['exact'],
             'view_counter': ['exact', 'gte', 'lte'],
             'status': ['exact'],
+            'timezone': ['exact'],
+            'language': ['exact'],
+            'organizer': ['exact'],
 
             'start': ['exact', 'gte', 'lte'],
             'end': ['exact', 'gte', 'lte'],

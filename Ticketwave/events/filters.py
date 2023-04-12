@@ -12,7 +12,8 @@ class eventFilter(filters.FilterSet):
             'name': ['exact'],
             'owner': ['exact'],
             'category': ['exact'],
-            'view_counter': ['exact'],
+            'view_counter': ['exact', 'gte', 'lte'],
+            'status': ['exact'],
 
             'start': ['exact', 'gte', 'lte'],
             'end': ['exact', 'gte', 'lte'],

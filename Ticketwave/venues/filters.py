@@ -11,6 +11,7 @@ class venueFilter(filters.FilterSet):
             'name': ['exact'],
             'country': ['exact'],
             'city': ['exact'],
+            'state': ['exact'],
             'address': ['exact'],
             'latitude': ['gte', 'lte'],
             'longitude': ['gte', 'lte'],

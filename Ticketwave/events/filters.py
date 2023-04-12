@@ -29,6 +29,7 @@ class eventFilter(filters.FilterSet):
             'venue': ['exact', 'in'],
             'venue__name': ['exact'],
             'venue__city': ['exact'],
+            'venue__city': ['state'],
             'venue__country': ['exact'],
             'venue__address': ['exact'],
             'venue__latitude': ['gte', 'lte'],

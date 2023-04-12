@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import event_Create, event_Destroy, event_List, event_Update, event_Retrieve, event_private_Retrieve, \
-    event_increment_view_counter, follow_event, event_follower_count, event_count_query, event_cancel
+    event_increment_view_counter, follow_event, event_follower_count, event_count_query, event_unpublish, event_publish, event_copy
 
 
 urlpatterns = [
@@ -19,5 +19,7 @@ urlpatterns = [
     path('event_follower_count/<event_id>/', event_follower_count.as_view()),
 
     path('event_count_query/', event_count_query.as_view()),
-    path('event_cancel/<event_id>/', event_cancel.as_view()),
+    path('unpublish/<event_id>/', event_unpublish.as_view()),
+    path('publish/<event_id>/', event_publish.as_view()),
+    path('copy/<event_id>/', event_copy.as_view()),
 ]

@@ -227,7 +227,15 @@ def check_order_status(event):
             return False
     return True
 
-class event_cancel(APIView):
+def check_publish_requirements(event):
+    if event.name == '' and event.description == '': 
+            return False
+    #if len(tickets.objects.filter(event=event)) == 0: return false
+    #check for valid payment option too, required
+    return True
+
+class event_unpublish(APIView):
+    # permission_classes = [IsAuthenticated, Is_eventowner]
     def get(self, request, event_id):
         try:
             event = Event.objects.get(id=event_id)
@@ -236,7 +244,35 @@ class event_cancel(APIView):
                 serializer = event_Serializer(event, data={'status': 'canceled'}, partial=True)
                 if serializer.is_valid():
                     serializer.save()
-            return Response({'success': result})
+            return Response({'unpublished': result}, status=200)
+        except:
+            return Response(status=400)
+        
+class event_publish(APIView):
+    # permission_classes = [IsAuthenticated, Is_eventowner]
+    def get(self, request, event_id):
+        try:
+            event = Event.objects.get(id=event_id)
+            result = check_publish_requirements(event)
+            if result:
+                serializer = event_Serializer(event, data={'status': 'live'}, partial=True)
+                if serializer.is_valid():
+                    serializer.save()
+            return Response({'published': result}, status=200)
+        except:
+            return Response(status=400)
+        
+class event_copy(APIView):
+    # permission_classes = [IsAuthenticated, Is_eventowner]
+    def get(self, request, event_id):
+        try:
+            try:
+                event = Event.objects.get(id=event_id)
+                event.pk = None
+                event.save()
+                return Response({'copy': True}, status=200)
+            except:
+                return Response({'copy': False}, status=400)
         except:
             return Response(status=400)
     

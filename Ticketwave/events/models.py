@@ -37,6 +37,13 @@ class Event(models.Model):
     view_counter = models.IntegerField(
         default=0, validators=[MinValueValidator(0)])
     age_restriction = models.BooleanField(default=False)
+    
+    fully_booked = models.BooleanField(default=False)
+    published = models.BooleanField(default=False)
+    organizer = models.CharField(max_length=80)
+    video_url = models.URLField(blank=True)
+    timezone = models.CharField(max_length=10)
+    language = models.CharField(max_length=20)
 
     owner = models.ForeignKey(
         Users, on_delete=models.CASCADE, default=1, related_name='event')

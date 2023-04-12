@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from .models import Ticket
 from .serlializers import TicketSerializer
 
+
 @api_view(['GET'])
 def ApiOverview(request):
 	api_urls = {
@@ -48,6 +49,7 @@ class update_tickets(APIView):
 			return Response(status=status.HTTP_404_NOT_FOUND)
 	
 class view_tickets(APIView):
+	
 	queryset = Ticket.objects.all()
 	def get(request, *args, **kwargs):
 		queryset = Ticket.objects.all()
@@ -65,3 +67,20 @@ class view_tickets(APIView):
 			return Response(status=status.HTTP_404_NOT_FOUND)
     
 
+class TicketList(APIView):
+    """
+    List all Tickets, or create a new Ticket
+    """
+  
+    def get(self, request, format=None):
+        tickets = Ticket.objects.all()
+        serializer = TicketSerializer( tickets, many=True)
+        return Response(serializer.data)
+  
+    def post(self, request, format=None):
+        serializer = TicketSerializer(data=request.data) 
+        if serializer.is_valid(): # after data is received from request, serializer changes it into object
+            serializer.save()
+            return Response(serializer.data,
+                            status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

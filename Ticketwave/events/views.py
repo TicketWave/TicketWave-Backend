@@ -97,6 +97,14 @@ class event_List(ListAPIView):
                     queryset = queryset.filter(published__in=[True])
                 elif published.lower() == 'false':
                     queryset = queryset.filter(published__in=[False])
+            
+            invite_only = self.request.query_params.get(
+                'invite_only', None)
+            if invite_only is not None:
+                if invite_only.lower() == 'true':
+                    queryset = queryset.filter(invite_only__in=[True])
+                elif invite_only.lower() == 'false':
+                    queryset = queryset.filter(invite_only__in=[False])
 
         except:
             # pass
@@ -187,6 +195,14 @@ class event_count_query(ListAPIView):
                     queryset = queryset.filter(published__in=[True])
                 elif published.lower() == 'false':
                     queryset = queryset.filter(published__in=[False])
+            
+            invite_only = self.request.query_params.get(
+                'invite_only', None)
+            if invite_only is not None:
+                if invite_only.lower() == 'true':
+                    queryset = queryset.filter(invite_only__in=[True])
+                elif invite_only.lower() == 'false':
+                    queryset = queryset.filter(invite_only__in=[False])
 
         except:
             # pass

@@ -68,24 +68,24 @@ class venue_Create(CreateAPIView):
         except ValueError:
             return Response({'error': 'Invalid latitude or longitude'}, status=400)
         
-        if city is None or not state is None or not country is None:
-            city, state, country = get_location_info(latitude, longitude)
-            # Clip city, state, and country if necessary
-            city = city[:32]
-            state = state[:32]
-            country = country[:32]
+        
+        city, state, country = get_location_info(latitude, longitude)
+        # Clip city, state, and country if necessary
+        city = city[:32]
+        state = state[:32]
+        country = country[:32]
             
-            address = f"{city}, {state}, {country}"
+        address = f"{city}, {state}, {country}"
             
-            # Update the serializer object with the new data
-            serializer.validated_data['name'] = name
-            serializer.validated_data['city'] = city
-            serializer.validated_data['state'] = state
-            serializer.validated_data['country'] = country
-            serializer.validated_data['address'] = address
+        # Update the serializer object with the new data
+        serializer.validated_data['name'] = name
+        serializer.validated_data['city'] = city
+        serializer.validated_data['state'] = state
+        serializer.validated_data['country'] = country
+        serializer.validated_data['address'] = address
 
-            # Validate the serializer object
-            serializer.is_valid(raise_exception=True)
+        # Validate the serializer object
+        serializer.is_valid(raise_exception=True)
 
         serializer.save()
         

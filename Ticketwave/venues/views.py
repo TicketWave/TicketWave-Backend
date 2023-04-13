@@ -89,8 +89,8 @@ class venue_Create(CreateAPIView):
 
         serializer.save()
         
-class venue_get_user_location(APIView):
-    def get(self, request, event_id):
+class venue_get_location(APIView):
+    def get(self, request):
         try:
             latitude = self.request.data.get('latitude', None)
             longitude = self.request.data.get('longitude', None)

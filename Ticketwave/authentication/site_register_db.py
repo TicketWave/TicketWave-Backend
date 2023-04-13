@@ -1,7 +1,7 @@
 from django.contrib.sites.models import Site
 
 # Replace these values with your own site domain and name
-site_domain = 'ticketwave.com'
+site_domain = '127.0.0.1:8000'
 site_name = 'ticketwave'
 
 # Get the current site

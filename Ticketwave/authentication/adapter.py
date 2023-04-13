@@ -25,37 +25,3 @@ class CustomAccountAdapter(DefaultAccountAdapter):
 
     def set_password(self, user, password):
         return super().set_password(user, make_password(password))
-
-
-class GoogleLogin(SocialLoginView):  # if you want to use Implicit Grant, use this
-    adapter_class = GoogleOAuth2Adapter
-    serializer_class = JWTSerializer
-
-    def post(self, request):
-        try:
-            # Parse the response from the provider
-            self.request.POST = self.request.POST.copy()
-            self.request.POST['access_token'] = request.data['access_token']
-            self.request.POST['code'] = ''
-            return super(GoogleLogin, self).post(request)
-        except OAuth2Error as e:
-            # Handle errors
-            return Response({'detail': str(e)})
-
-# for front end, login happens from this url template and redirect it to /auth/google
-# https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=<CALLBACK_URL_YOU_SET_ON_GOOGLE>&prompt=consent&response_type=token&client_id=<YOUR CLIENT ID>&scope=openid%20email%20profile
-
-class FacebookLogin(SocialLoginView):
-    adapter_class = FacebookOAuth2Adapter
-    serializer_class = JWTSerializer
-
-    def post(self, request):
-        try:
-            # Parse the response from the provider
-            self.request.POST = self.request.POST.copy()
-            self.request.POST['access_token'] = request.data['access_token']
-            self.request.POST['code'] = ''
-            return super(FacebookLogin, self).post(request)
-        except OAuth2Error as e:
-            # Handle errors
-            return Response({'detail': str(e)})

@@ -292,12 +292,14 @@ class event_publish(APIView):
             result = check_publish_requirements(event)
             start = self.request.data.get('published', None)
             end = self.request.data.get('published', None)
-            if result and start != None and end != None:
+            password = self.request.data.get('password', None)
+            if result and start is not None and end is not None and password is not None:
                 serializer = event_Serializer(event, data={
                     'status': 'live',
                     'publish': True,
                     'start': start,
-                    'end': end
+                    'end': end,
+                    'password': password,
                 }, partial=True)
                 if serializer.is_valid():
                     serializer.save()

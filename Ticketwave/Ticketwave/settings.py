@@ -56,11 +56,9 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'authentication',
-    'tickets'
+    'tickets',
     'django_filters',
     'allauth.socialaccount.providers.facebook',
-    'authentication',
-    'corsheaders',
 ]
 
 MIDDLEWARE = [

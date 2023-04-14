@@ -43,8 +43,6 @@ INSTALLED_APPS = [
     'orders',
     'events',
     'pricing',
-    'ticket_classes',
-    'ticket_groups',
     'users',
     'venues',
     'media',
@@ -58,6 +56,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'authentication',
+    'tickets'
     'django_filters',
     'allauth.socialaccount.providers.facebook',
     'authentication',

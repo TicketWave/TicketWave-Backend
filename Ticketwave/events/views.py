@@ -220,7 +220,7 @@ class event_count_query(ListAPIView):
 class event_increment_view_counter(UpdateAPIView):
     serializer_class = IncrementViewSerializer
     queryset = Event.objects.all()
-    # permission_classes = [AllowAny] #???
+    permission_classes = [AllowAny] 
 
     def patch(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -231,7 +231,7 @@ class event_increment_view_counter(UpdateAPIView):
 
 
 class follow_event(APIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def post(self, request, event_id):
         user = request.user
@@ -259,6 +259,7 @@ class follow_event(APIView):
 
 
 class event_follower_count(APIView):
+    permission_classes = [AllowAny]
     def get(self, request, event_id):
         try:
             event = Event.objects.get(id=event_id)
@@ -283,7 +284,7 @@ def check_publish_requirements(event):
     return True
 
 class event_unpublish(APIView):
-    # permission_classes = [IsAuthenticated, Is_eventowner]
+    permission_classes = [IsAuthenticated, Is_eventowner]
     def get(self, request, event_id):
         try:
             event = Event.objects.get(id=event_id)
@@ -301,7 +302,7 @@ class event_unpublish(APIView):
             return Response(status=400)
         
 class event_publish(APIView):
-    # permission_classes = [IsAuthenticated, Is_eventowner]
+    permission_classes = [IsAuthenticated, Is_eventowner]
     def get(self, request, event_id):
         try:
             event = Event.objects.get(id=event_id)
@@ -325,7 +326,7 @@ class event_publish(APIView):
             return Response(status=400)
         
 class event_copy(APIView):
-    # permission_classes = [IsAuthenticated, Is_eventowner]
+    permission_classes = [IsAuthenticated, Is_eventowner]
     def get(self, request, event_id):
         try:
             try:
@@ -348,7 +349,7 @@ class event_Update(UpdateAPIView):
     queryset = Event.objects.all()
     lookup_field = 'pk'
     serializer_class = event_private_Serializer
-    # permission_classes = [IsAuthenticated, Is_eventowner_or_readonly]
+    permission_classes = [IsAuthenticated, Is_eventowner_or_readonly]
 
     def put(self, request, *args, **kwargs):
         kwargs['partial'] = True
@@ -358,16 +359,16 @@ class event_Update(UpdateAPIView):
 class event_Destroy(DestroyAPIView):
     queryset = Event.objects.all()
     serializer_class = event_private_Serializer
-    # permission_classes = [IsAuthenticated, Is_eventowner_or_readonly]
+    permission_classes = [IsAuthenticated, Is_eventowner_or_readonly]
 
 
 class event_Create(CreateAPIView):
     queryset = Event.objects.all()
     serializer_class = event_private_Serializer
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
 
 class event_private_Retrieve(RetrieveAPIView):
     queryset = Event.objects.all()
     serializer_class = event_private_Serializer
-    # permission_classes = [IsAuthenticated, Is_eventowner]
+    permission_classes = [IsAuthenticated, Is_eventowner]

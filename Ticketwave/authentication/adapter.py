@@ -1,11 +1,5 @@
-from dj_rest_auth.registration.views import SocialLoginView
-from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
-from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
 from allauth.account.adapter import DefaultAccountAdapter
 from django.contrib.auth.hashers import make_password
-from allauth.socialaccount.providers.oauth2.client import OAuth2Error
-from dj_rest_auth.serializers import JWTSerializer
-from rest_framework.response import Response
 
 class CustomAccountAdapter(DefaultAccountAdapter):
 

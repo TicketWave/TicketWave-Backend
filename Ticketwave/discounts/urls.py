@@ -4,5 +4,5 @@ from django.urls import path
 
 urlpatterns = [
     path('', ManageDiscounts.as_view()),
-    path('<int:id>', views.addDelUpDiscount)
+    # path('<int:id>', views.addDelUpDiscount)
 ]

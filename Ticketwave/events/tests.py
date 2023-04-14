@@ -194,10 +194,11 @@ class EventTestCase(TestCase):
         self.assertEqual(self.event.invite_only, True)
 
     def Test_event_copy(self):
-        self.assertEqual(self.event.pk, 1)
-        self.event.pk = None
-        self.event.save()
-        self.assertNotEqual(self.event.pk, 1)
+        event = Event.objects.get(pk=1)
+        self.assertEqual(event.pk, 1)
+        event.pk = None
+        event.save()
+        self.assertNotEqual(event.pk, 1)
         
     def Test_event_destroy(self):
         event = Event.objects.get(id=1)

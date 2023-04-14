@@ -13,6 +13,8 @@ class CustomAccountAdapter(DefaultAccountAdapter):
             data = form.cleaned_data
             user.is_public = data.get('is_public')
             user.image_id = data.get('image_id')
+            user.first_name = data.get('first_name')
+            user.last_name = data.get('last_name')
 
             user.is_active = False
             user.save()

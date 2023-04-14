@@ -11,9 +11,11 @@ class EventTestCase(TestCase):
     
     def setUp(self):
         # Create instances of the related models
-        user = Users.objects.create(username='testuser')
-        category = Categories.objects.create(name='testcategory')
-        venue = Venue.objects.create(name='testvenue')
+        user = Users.objects.create(username='testuser',
+                                 email='jlennon@beatles.com',
+                                 password='glasssssss'))
+        category = Categories.objects.create(name='testcategory', short_name='testcat')
+        venue = Venue.objects.create(name='testvenue', longitude=53.480837, latitude=53.480837)
 
         # Create an instance of Event to use in the tests
         self.event = Event.objects.create(

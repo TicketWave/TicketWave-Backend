@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'venues',
     'media',
     'rest_framework',
-    'corsheaders',
     'dj_rest_auth',
     'dj_rest_auth.registration',
     'rest_framework.authtoken',
@@ -59,6 +58,7 @@ INSTALLED_APPS = [
     'tickets',
     'django_filters',
     'allauth.socialaccount.providers.facebook',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [

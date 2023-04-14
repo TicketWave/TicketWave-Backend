@@ -207,4 +207,4 @@ class EventTestCase(TestCase):
         try:
             event = Event.objects.get(id=1)
         except Event.DoesNotExist:
-            self.assertEqual(1, 1, "Event with id 1 does not exist")
+            self.assertEqual(1, 1)

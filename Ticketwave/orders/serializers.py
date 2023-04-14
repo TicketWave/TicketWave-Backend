@@ -1,10 +1,8 @@
 from rest_framework import serializers
-from .models import Media
+from .models import Order
 
 
-        
-class media_Serializer(serializers.ModelSerializer):
+class order_Serializer(serializers.ModelSerializer):
     class Meta:
-        model = Media
+        model = Order
         fields = '__all__'
-        

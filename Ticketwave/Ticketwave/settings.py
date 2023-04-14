@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,10 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-n=a2yox(rubsowm)xnqv^9!q-jut2krq*s9p)j%2hdg(4^7kcf'
+SECRET_KEY = 'django-insecure-n=a2yox(rubsowm)xnqv^9!q-jut2krq*s9p)j%2hdg(4^7kcf' #os.environ.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True #os.environ.get('DJANGO_DEBUG')
 
 ALLOWED_HOSTS = []
 
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
     'venues',
     'media',
     'rest_framework',
+    'corsheaders',
     'dj_rest_auth',
     'dj_rest_auth.registration',
     'rest_framework.authtoken',
@@ -54,13 +56,24 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'authentication',
+<<<<<<< HEAD
     'tickets'
+=======
+    'django_filters',
+    'allauth.socialaccount.providers.facebook',
+    'authentication',
+    'corsheaders',
+>>>>>>> 2dc65bcd044e0d13ed648f2c9af4914fb32815f8
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -108,16 +121,10 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "OPTIONS": {
+            "min_length": 8,
+        },
     },
 ]
 
@@ -148,6 +155,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #authentication_authoriazation
 
+CORS_ORIGIN_ALLOW_ALL = True
+SITE_ID=1
 
 OLD_PASSWORD_FIELD_ENABLED = True
 LOGOUT_ON_PASSWORD_CHANGE = False
@@ -155,23 +164,22 @@ PASSWORD_HASHERS = ['django.contrib.auth.hashers.BCryptSHA256PasswordHasher']
 
 ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'optional'  
-LOGIN_URL = 'http://localhost:8000/auth/login'
+ACCOUNT_EMAIL_VERIFICATION = 'none'  
+#LOGIN_URL = 'http://localhost:8000/auth/login'
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
 
 
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER =  'ticketwave001@gmail.com' #os.environ.get('EMAIL_ID') 
-EMAIL_HOST_PASSWORD =  'zxuhoelupwlvobem' #os.environ.get('EMAIL_PW')
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_FROM = 'ticketwave001@gmail.com'
-VERIFICATION_SUCCESS_TEMPLATE = None
-LOGIN_URL = 'localhost' + '/auth/login' #os.environ.get('DOMAIN')
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' 
+EMAIL_HOST = 'smtp.gmail.com' 
+EMAIL_PORT = 587 #os.environ.get('EMAIL_PORT') 
+EMAIL_USE_TLS = True 
+EMAIL_HOST_USER =  'ticketwave001@gmail.com' #os.environ.get('EMAIL_HOST_USER') 
+EMAIL_HOST_PASSWORD =  'zxuhoelupwlvobem' #os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_HOST = 'smtp.gmail.com' #os.environ.get('EMAIL_HOST')
+EMAIL_FROM = 'ticketwave001@gmail.com' #os.environ.get('EMAIL_FROM')
+VERIFICATION_SUCCESS_TEMPLATE = None 
 
 
 
@@ -184,9 +192,6 @@ ACCOUNT_LOGOUT_ON_GET = True
 
 REST_FRAMEWORK = {
     
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
     )
@@ -211,8 +216,10 @@ SIMPLE_JWT ={
 
 SOCIALACCOUNT_LOGIN_ON_GET=True
 AUTHENTICATION_BACKENDS = [
-    'allauth.account.auth_backends.AuthenticationBackend'
+    'allauth.account.auth_backends.AuthenticationBackend',
+    'django.contrib.auth.backends.ModelBackend',
     ]
+#LOGIN_REDIRECT_URL = "/"  #if you succeed in login, you'll be redirected to the main page.
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
@@ -223,6 +230,33 @@ SOCIALACCOUNT_PROVIDERS = {
         'AUTH_PARAMS': {
             'access_type': 'online',
         }
+    },
+    'facebook': {
+        'METHOD': 'oauth2',
+        'SCOPE': ['email','public_profile', 'user_friends'],
+        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'INIT_PARAMS': {'cookie': True},
+        'FIELDS': [
+            'id',
+            'first_name',
+            'last_name',
+            'middle_name',
+            'name',
+            'name_format',
+            'picture',
+            'short_name',
+            'verified',
+            'locale',
+            'timezone',
+            'link',
+            'gender',
+            'updated_time'
+        ],
+        'EXCHANGE_TOKEN': True,
+        'LOCALE_FUNC': lambda request: 'en_US',
+        'VERIFIED_EMAIL': False,
+        'VERSION': 'v13.0',
+        'GRAPH_API_URL': 'https://graph.facebook.com/v13.0', # 'VERSION': 'v2.4'
     }
 }
 

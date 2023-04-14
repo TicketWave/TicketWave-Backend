@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from rest_framework.views import APIView
 from django.contrib.auth.models import User
-from .serializers import UsersSerializer
+from .Serializers import UsersSerializer
 from .models import Users
 from rest_framework.response import Response
 

@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'authentication',
     'tickets',
+    'attendees',
     'django_filters',
     'allauth.socialaccount.providers.facebook',
     'corsheaders',

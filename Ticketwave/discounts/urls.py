@@ -1,8 +1,8 @@
 from . import views
-from .views import ManageDiscounts
 from django.urls import path
 
 urlpatterns = [
-    path('', ManageDiscounts.as_view()),
-    # path('<int:id>', views.addDelUpDiscount)
+    path('create/', views.createDiscount.as_view()),
+    path('<int:pk>/', views.manageDiscounts.as_view()),
+    path('event/<int:event_id>/', views.listDiscountsByEvent)
 ]

@@ -1,11 +1,10 @@
 from django.urls import path
-from . import views
+from .views import createAttendee, manageAttendees
 
 urlpatterns = [
-    # path('attendees/<int:attendee_id>/', get_attendee_by_id, name='get_attendee_by_id'),
-    # path('attendees/event/<int:event_id>/', get_attendee_by_event, name='get_attendee_by_event'),
-    # path('attendees/user/<int:user_id>/', get_attendee_by_user, name='get_attendee_by_user'),
-    # path('attendees/', post_attendee, name='post_attendee'),
-    # path('attendees/<int:attendee_id>/', put_attendee, name='put_attendee'),
-    # path('attendees/<int:attendee_id>/', delete_attendee, name='delete_attendee'),   
+    path('<int:pk>/', manageAttendees.as_view()),
+    # path('user/<int:user_id>/', ),
+    path('create', createAttendee.as_view()),
+    path('update/<int:pk>/', manageAttendees.as_view()),
+    path('delete/<int:pk>/', manageAttendees.as_view()),   
 ]

@@ -1,3 +1,23 @@
 from django.db import models
 
-# Create your models here.
+class Attendee(models.Model):
+  created=models.DateTimeField()
+  changed=models.DateTimeField()
+  ticket_class_id=models.IntegerField()
+  quantity=models.IntegerField()
+  costs=models.IntegerField()
+  checked_in=models.BooleanField()
+  cancelled=models.BooleanField()
+  refunded=models.BooleanField()
+  event_id=models.IntegerField()
+  order_id=models.IntegerField()
+  invited_by_id=models.IntegerField()
+  attendee_id=models.IntegerField()
+  addresses=models.CharField(max_length=255)
+  delivery_method=models.CharField(max_length=255)
+  base_price=models.FloatField()
+  ticketwave_fee=models.FloatField()
+  tax=models.FloatField()
+  payment_fee=models.FloatField()
+  gross=models.FloatField()
+  user_id = models.ForeignKey(Users, on_delete=models.CASCADE, default=1, related_name='id')

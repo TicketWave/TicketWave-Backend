@@ -16,3 +16,4 @@ social-auth-app-django
 six
 django-filter==23.1
 geopy==2.3.0
+django-seed

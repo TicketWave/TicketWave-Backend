@@ -24,10 +24,15 @@ class MultipleFieldLookupMixin:
         self.check_object_permissions(self.request, obj)
         return obj
 
-class UserAPI(MultipleFieldLookupMixin, RetrieveUpdateDestroyAPIView):
+class UserAPIByEmail(RetrieveUpdateDestroyAPIView):
    queryset = Users.objects.all()
    serializer_class = UsersSerializer
-   lookup_fields = ['email']
+   lookup_field = 'email'
+
+class UserAPIByID(RetrieveUpdateDestroyAPIView):
+   queryset = Users.objects.all()
+   serializer_class = UsersSerializer
+   lookup_field = 'id'
 
 class UserProfile(APIView):
     queryset = Users.objects.all()
@@ -35,3 +40,4 @@ class UserProfile(APIView):
         user = request.user
         serializer = UsersSerializer(user)
         return Response(serializer.data)
+

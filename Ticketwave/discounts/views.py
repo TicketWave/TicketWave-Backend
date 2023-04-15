@@ -7,6 +7,7 @@ from rest_framework.decorators import api_view
 class manageDiscounts(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = DiscountsSerializer
     queryset = Discounts.objects.all()
+    lookup_field = 'id'
 
 class createDiscount(generics.CreateAPIView):
     serializer_class = DiscountsSerializer

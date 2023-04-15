@@ -1,9 +1,9 @@
 from . import views
 from django.urls import path
-from .views import UserProfile, UserAPI
+from .views import UserProfile, UserAPIByEmail, UserAPIByID
 
 urlpatterns = [
-    path('<int:pk>/', UserAPI.as_view()),
-    path('email/<str:email>/', UserAPI.as_view()),
+    path('id/<int:id>/', UserAPIByID.as_view()),
+    path('email/<str:email>/', UserAPIByEmail.as_view()),
     path('me/', UserProfile.as_view()),
 ]

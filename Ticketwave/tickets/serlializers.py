@@ -7,6 +7,8 @@ class TicketSerializer(serializers.ModelSerializer):
 		model = Ticket
 		fields = (
 			'name',
+			'event',
+			'user',
 			'price',
 			'SalesStart',
 			'StartTime',
@@ -19,7 +21,7 @@ class TicketSerializer(serializers.ModelSerializer):
 			'PromoEnds',
 			'ApplyCode',
 			'TicketLimit',
-			'CSVfile',
+			#'CSVfile',
 			'amount',
 			'State',
 			'Capacity'

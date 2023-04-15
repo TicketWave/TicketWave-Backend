@@ -1,8 +1,8 @@
 from django.urls import path
-from .views import add_tickets, update_tickets, view_tickets, TicketList
+from tickets.views import TicketList,TicketDetail
 
 
 urlpatterns = [
-path('tickets/', TicketList.as_view()),
-
+path('', TicketList.as_view()),
+path('id/<int:pk>/', TicketDetail.as_view()),
 ]

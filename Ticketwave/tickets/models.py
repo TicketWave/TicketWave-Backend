@@ -5,6 +5,9 @@ from django.db import models
 
 class Ticket(models.Model):
     name = models.CharField(max_length=255)
+    user = models.IntegerField()
+    event = models.IntegerField()
+    # user and event will be replaced with foreign key field later 
     price = models.FloatField()
     SalesStart = models.DateTimeField()
     StartTime = models.DateTimeField()
@@ -17,11 +20,11 @@ class Ticket(models.Model):
     PromoEnds = models.DateTimeField()
     ApplyCode = models.BooleanField()
     TicketLimit = models.SmallIntegerField()
-    CSVfile = models.FileField() # 
+    #CSVfile = models.FileField() # 
     amount = models.PositiveIntegerField()
     #TicketList = 
     State = models.CharField(max_length=255)
-    Capacity = models.IntegerField
+    Capacity = models.IntegerField()
  
     def __str__(self) -> str:   # when one calls ticket models with any entity, returns its name
         return self.name

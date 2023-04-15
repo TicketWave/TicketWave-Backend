@@ -2,8 +2,7 @@ from django.db import models
 from events.models import Event
 
 class Discounts(models.Model):
-    id = models.AutoField(primary_key=True)
-    code = models.CharField(unique=True, blank=False, max_length=20)
+    code = models.CharField(unique=True, blank=False, max_length=20, primary_key=True)
     type = models.CharField(max_length=255)
     end_date = models.DateTimeField(blank=False)
     start_date = models.DateTimeField(blank=False)

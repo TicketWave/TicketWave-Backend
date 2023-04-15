@@ -1,60 +1,19 @@
-from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly
 from .models import Discounts
 from .serializers import DiscountsSerializer
-from rest_framework.decorators import api_view
+from rest_framework import generics
 from rest_framework.response import Response
-from rest_framework import status
-from rest_framework.views import APIView
+from rest_framework.decorators import api_view
 
-# @api_view(['GET', 'POST'])
-# def manageDiscounts(request):
-#     if request.method == 'GET':
-#         discounts = Discounts.objects.all()
-#         serializer = DiscountsSerializer(discounts, many=True)
-#         return Response({'discounts': serializer.data})
-    
-#     if request.method == 'POST':
-#         serializer = DiscountsSerializer(request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response({'data': serializer.data}, status= status.HTTP_201_CREATED)
-        
-# @api_view(['GET', 'PUT', 'DELETE'])
-# def addDelUpDiscount(request, id):
-#     try:
-#         discount = Discounts.objects.get(pk=id)
-#     except Discounts.DoesNotExist:
-#         return Response(status= status.HTTP_404_NOT_FOUND)
-    
-#     if request.method == 'GET':
-#         serializer = DiscountsSerializer(discount)
-#         return Response(data= serializer.data, status= status.HTTP_200_OK)
-#     elif request.method == 'PUT':
-#         serializer = DiscountsSerializer(discount, data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data, status = status.HTTP_200_OK)
-#         else:
-#             return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
-#     elif request.method == 'DELETE':
-#         discount.delete()
-#         return Response(status = status.HTTP_204_NO_CONTENT)
-
-
-class ManageDiscounts(APIView
-                      ):
-    
-    permission_classes = [DjangoModelPermissionsOrAnonReadOnly,]
+class manageDiscounts(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = DiscountsSerializer
     queryset = Discounts.objects.all()
-    def get(self, request):
-        discounts = Discounts.objects.all()
-        serializer = DiscountsSerializer(discounts, many=True)
-        return Response({'discounts': serializer.data})
-    
-    
-    def post(self, request, *args, **kwargs):
-        serializer = DiscountsSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response({'data': serializer.data}, status= status.HTTP_201_CREATED)
-        else: return Response({"errors":serializer.error_messages}) #Response(status=status.HTTP_400_BAD_REQUEST)
+
+class createDiscount(generics.CreateAPIView):
+    serializer_class = DiscountsSerializer
+    queryset = Discounts.objects.all()
+
+@api_view(('GET',))
+def listDiscountsByEvent(request, event_id):
+    discounts = Discounts.objects.filter(event_id=event_id)
+    serializer = DiscountsSerializer(discounts, many = True)
+    return Response(serializer.data)

@@ -7,4 +7,4 @@ urlpatterns = [
     path('create', createAttendee.as_view()),
     path('update/<int:pk>/', manageAttendees.as_view()),
     path('delete/<int:pk>/', manageAttendees.as_view()),   
-]
+] 

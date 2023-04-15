@@ -10,6 +10,4 @@ class Discounts(models.Model):
     percent_off = models.FloatField()
     quantity_available = models.IntegerField()
     quantity_sold = models.IntegerField()
-    # event_id = models.ForeignKey(Event, on_delete=models.CASCADE)
-    event_id = models.IntegerField(default=-1)
-    
+    event_id = models.ForeignKey(Event, on_delete=models.CASCADE)

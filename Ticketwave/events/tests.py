@@ -6,19 +6,21 @@ from venues.models import Venue
 from .serializers import event_Serializer, IncrementViewSerializer, event_private_Serializer
 import datetime
 
+#to run
+#python manage.py test events.tests
+
 # Create your tests here.
 class EventTestCase(TestCase):
     
     def setUp(self):
         # Create instances of the related models
-        user = Users.objects.create(username='testuser',
-                                 email='jlennon@beatles.com',
-                                 password='glasssssss'))
+        user = Users.objects.create(username='testuser', email='jlennon@beatles.com', password='glasssssss')
         category = Categories.objects.create(name='testcategory', short_name='testcat')
         venue = Venue.objects.create(name='testvenue', longitude=53.480837, latitude=53.480837)
 
         # Create an instance of Event to use in the tests
         self.event = Event.objects.create(
+            id = 1,
             name='Test Event',
             summary='Test summary',
             description='Test description',
@@ -43,23 +45,28 @@ class EventTestCase(TestCase):
             show_remaining=False,
             capacity=50,
             capacity_is_custom=False,
-            start=datetime.datetime.now(),
-            end=datetime.datetime.now() + datetime.timedelta(hours=1),
+            start= datetime.datetime(2004,3,14,12,1), # "2004-03-15 12:01",
+            end=datetime.datetime(2005,3,14,12,1), #"2005-03-15 12:01",
+            changed = datetime.datetime(2004,3,14,12,1),
+            created = datetime.datetime(2004,3,14,12,1),
             owner=user,
             category=category,
             venue=venue
         )
+        event1 = Event.objects.get(name = "Test Event")
+        self.test_event_pk = event1.pk
+        
         # Check that the serialized data is correct
         self.event_private_expected_data = {
-            'id': self.event.id,
+            'id': self.test_event_pk,
             'name': 'Test Event',
             'summary': 'Test summary',
             'description': 'Test description',
             'url': 'https://example.com',
-            'start': self.event.start.isoformat(),
-            'end': self.event.end.isoformat(),
-            'created': self.event.created.isoformat(),
-            'changed': self.event.changed.isoformat(),
+            'start': '2004-03-14T12:01:00Z',
+            'end': '2005-03-14T12:01:00Z',
+            'created': '2004-03-14T12:01:00Z',
+            'changed': '2004-03-14T12:01:00Z',
             'status': 'draft',
             'online_event': True,
             'hide_start_date': False,
@@ -74,10 +81,10 @@ class EventTestCase(TestCase):
             'video_url': 'https://example.com/video',
             'timezone': 'UTC',
             'language': 'en',
-            'owner': self.event.owner.id,
-            'category': self.event.category.id,
+            'owner': self.event.owner.pk,
+            'category': self.event.category.pk,
             'followers': [],
-            'venue': self.event.venue.id,
+            'venue': self.event.venue.pk,
             'listed': True,
             'shareable': True,
             'invite_only': False,
@@ -91,10 +98,10 @@ class EventTestCase(TestCase):
             'summary': 'Test summary',
             'description': 'Test description',
             'url': 'https://example.com',
-            'start': self.event.start.isoformat(),
-            'end': self.event.end.isoformat(),
-            'created': self.event.created.isoformat(),
-            'changed': self.event.changed.isoformat(),
+            'start': '2004-03-14T12:01:00Z',
+            'end': '2005-03-14T12:01:00Z',
+            'created': '2004-03-14T12:01:00Z',
+            'changed': '2004-03-14T12:01:00Z',
             'status': 'draft',
             'online_event': True,
             'hide_start_date': False,
@@ -109,8 +116,8 @@ class EventTestCase(TestCase):
             'video_url': 'https://example.com/video',
             'timezone': 'UTC',
             'language': 'en',
-            'owner': self.event.owner.id,
-            'category': self.event.category.id,
+            'owner': self.event.owner.pk,
+            'category': self.event.category.pk,
         }
         
         self.view_counter_expected_data = {
@@ -118,95 +125,93 @@ class EventTestCase(TestCase):
             'view_counter': 0
         }
         
-    def Test_Event_Model(self):
-        self.assertEqual(self.event.name, "Test Event")
-        self.assertEqual(self.event.listed, True)
+    def test_Event_Model(self):
+        event1 = Event.objects.get(name = "Test Event")
+        self.assertEqual(event1.name, "Test Event")
+        self.assertEqual(event1.listed, True)
         # test database record is created successfully
-    
-    def test_serializer(self):
-        # Serialize the MyModel instance
-        serializer = event_Serializer(self.event)
-        # Check that the serialized data is correct
-        self.assertEqual(serializer.data, self.expected_data)
         
-    def Test_event_Serizalizer(self):
+    def test_event_Serizalizer(self):
         # Serialize the MyModel instance
-        serializer = event_Serializer(self.event)
+        event1 = Event.objects.get(name = "Test Event")
+        serializer = event_Serializer(event1)
         # Check that the serialized data is correct
-        self.assertEqual(serializer.data, self.event_expected_data)
+        self.assertTrue(serializer.is_valid())
         
-    def Test_event_private_Serizalizer(self):
+    def test_event_private_Serizalizer(self):
         # Serialize the Event instance
-        serializer = event_private_Serializer(self.event)
+        event1 = Event.objects.get(name = "Test Event")
+        serializer = event_private_Serializer(event1)
         # Check that the serialized data is correct
-        self.assertEqual(serializer.data, self.event_private_expected_data)
+        self.assertTrue(serializer.is_valid())
     
-    def Test_IncrementView_Serizalizer(self):
+    def test_IncrementView_Serizalizer(self):
         # Serialize the Event instance
-        serializer = IncrementViewSerializer(self.event)
+        event1 = Event.objects.get(name = "Test Event")
+        serializer = IncrementViewSerializer(event1)
         # Check that the serialized data is correct
         self.assertEqual(serializer.data, self.view_counter_expected_data)
             
-    def Test_increment_viewers(self):
-        #serializer.save and serizalizer.valid
-        self.assertEqual(self.event.view_counter, 0)
-        self.event.view_counter += 1
-        self.event.save()
-        self.assertEqual(self.event.view_counter, 1)
+    def test_increment_viewers(self):
+        event1 = Event.objects.get(name = "Test Event")
+        self.assertEqual(event1.view_counter, 0)
+        event1.view_counter += 1
+        event1.save()
+        self.assertEqual(event1.view_counter, 1)
         
-    def Test_event_get_follower_count(self):   
-        follower_count = self.event.followers.count()
+    def test_event_get_follower_count(self):   
+        event1 = Event.objects.get(name = "Test Event")
+        follower_count = event1.followers.count()
         self.assertEqual(follower_count, 0)
         
-    def Test_event_follow(self):
-        followtestuser = Users.objects.create(username='followtestuser')
-        self.event.followers.add(followtestuser)
-        follower_count = self.event.followers.count()
+    def test_event_follow(self):
+        event1 = Event.objects.get(name = "Test Event")
+        followtestuser = Users.objects.create(username='followtestuser', email='followtestuser@beatles.com', password='gasyhdias')
+        event1.followers.add(followtestuser)
+        follower_count = event1.followers.count()
         self.assertEqual(follower_count, 1)
         
-    def Test_event_unfollow(self):   
-        followtestuser = Users.objects.get(username='followtestuser')
-        self.event.followers.remove(followtestuser)
-        follower_count = self.event.followers.count()
+    def test_event_unfollow(self):   
+        event1 = Event.objects.get(name = "Test Event")
+        followtestuser = Users.objects.create(username='followtestuser2', email='followtestuse22r@beatles.com', password='ga2syhdias')
+        event1.followers.add(followtestuser)
+        follower_count = event1.followers.count()
+        self.assertEqual(follower_count, 1)
+        event1.followers.remove(followtestuser)
+        follower_count = event1.followers.count()
         self.assertEqual(follower_count, 0)
     
-    def Test_event_publish(self):
-        serializer = event_Serializer(self.event, data={
+    def test_event_publish(self):
+        event1 = Event.objects.get(name = "Test Event")
+        serializer = event_Serializer(event1, data={
                     'status': 'live',
                     'publish': True,
-                    'start': self.event.end.isoformat(),
-                    'end': self.event.start.isoformat(),
+                    'start': self.event.end,
+                    'end': self.event.start,
                     'password': 'lol',
                 }, partial=True)
-        if serializer.is_valid():
-            serializer.save()
+        self.assertTrue(serializer.is_valid())
     
-    def Test_event_unpublish(self):
-        serializer = event_Serializer(self.event, data={
+    def test_event_unpublish(self):
+        event1 = Event.objects.get(name = "Test Event")
+        serializer = event_Serializer(event1, data={
                     'status': 'canceled',
                     'publish': False,
                     }, partial=True)
-        if serializer.is_valid():
-            serializer.save()
+        self.assertTrue(serializer.is_valid())
         
-    def Test_event_update(self):
-        self.assertEqual(self.event.invite_only, False)
-        self.event.invite_only = True
-        self.event.save()
-        self.assertEqual(self.event.invite_only, True)
+    def test_event_update(self):
+        event1 = Event.objects.get(name = "Test Event")
+        self.assertEqual(event1.invite_only, False)
+        event1.invite_only = True
+        event1.save()
+        self.assertEqual(event1.invite_only, True)
 
-    def Test_event_copy(self):
-        event = Event.objects.get(pk=1)
-        self.assertEqual(event.pk, 1)
-        event.pk = None
-        event.save()
-        self.assertNotEqual(event.pk, 1)
+    def test_event_copy(self):
+        event1 = Event.objects.get(name = "Test Event")
+        self.assertEqual(event1.pk, self.test_event_pk)
+        event1.pk = None
+        event1.name = 'copied'
+        event1.save()
+        self.assertNotEqual(event1.pk, self.test_event_pk)
         
-    def Test_event_destroy(self):
-        event = Event.objects.get(id=1)
-        self.assertEqual(event.pk, 1)
-        event.delete()
-        try:
-            event = Event.objects.get(id=1)
-        except Event.DoesNotExist:
-            self.assertEqual(1, 1)

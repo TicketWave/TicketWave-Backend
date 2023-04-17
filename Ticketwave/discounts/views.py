@@ -18,3 +18,9 @@ def listDiscountsByEvent(request, event_id):
     discounts = Discounts.objects.filter(event_id=event_id)
     serializer = DiscountsSerializer(discounts, many = True)
     return Response(serializer.data)
+
+def applyDiscount(discount_code):
+    discount = Discounts.objects.get(code = discount_code)
+    discount.quantity_sold += 1
+    discount.quantity_available -= 1
+    discount.save()

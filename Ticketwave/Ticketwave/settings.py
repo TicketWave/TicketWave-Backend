@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -21,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-n=a2yox(rubsowm)xnqv^9!q-jut2krq*s9p)j%2hdg(4^7kcf' #os.environ.get('DJANGO_SECRET_KEY')
+SECRET_KEY = config('SECRET_KEY') #os.environ.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True #os.environ.get('DJANGO_DEBUG')
@@ -105,7 +106,7 @@ DATABASES = {
         "ENGINE": "djongo",
         "NAME": "ticketwave",
         "CLIENT": {
-            'host': 'mongodb+srv://jemmy:SFmskb4tFnNfoueg@cluster0.dol1pt8.mongodb.net/?retryWrites=true&w=majority',
+            'host': config('MONGOHOST'),
             #'host': 'mongodb://localhost:27017',
         }
     }

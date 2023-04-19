@@ -17,15 +17,15 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('events/', include('events.urls')),
-    path('venues/', include('venues.urls')),
-    path('tickets/', include('tickets.urls')),
-    path('categories/', include('categories.urls')),
-    path('discounts/', include('discounts.urls')),
-    path('users/', include('users.urls')),
-    path('orders/', include('orders.urls')),
-    path('pricing/', include('pricing.urls')),
-    path('attendees/', include('attendees.urls')),
+    path('api/admin/', admin.site.urls),
+    path('api/events/', include('events.urls')),
+    path('api/venues/', include('venues.urls')),
+    path('api/tickets/', include('tickets.urls')),
+    path('api/categories/', include('categories.urls')),
+    path('api/discounts/', include('discounts.urls')),
+    path('api/users/', include('users.urls')),
+    path('api/orders/', include('orders.urls')),
+    path('api/pricing/', include('pricing.urls')),
+    path('api/attendees/', include('attendees.urls')),
     path('', include('authentication.urls')),
 ]

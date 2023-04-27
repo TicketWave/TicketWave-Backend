@@ -40,7 +40,7 @@ def send_verification_email(request: Request, user_pk):
             uid = urlsafe_base64_encode(force_bytes(user.pk))
             token = Email_Activation_Token.make_token(user)
             email = EmailMessage(
-                mail_subject, f'please click on the link to verify your email http://localhost:8000/auth/activate_email/{uid}/{token}/', to=[user.email])
+                mail_subject, f'please click on the link to verify your email https://ticketwave.me/api/auth/activate_email/{uid}/{token}/', to=[user.email])
 
             if email.send():
                 return HttpResponse(status=200)

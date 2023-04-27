@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'django_filters',
     'allauth.socialaccount.providers.facebook',
     'corsheaders',
+    'django.contrib.site',
 ]
 
 MIDDLEWARE = [
@@ -172,10 +173,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com' 
 EMAIL_PORT = 587 #os.environ.get('EMAIL_PORT') 
 EMAIL_USE_TLS = True 
-EMAIL_HOST_USER =  'ticketwave001@gmail.com' #os.environ.get('EMAIL_HOST_USER') 
-EMAIL_HOST_PASSWORD =  'zxuhoelupwlvobem' #os.environ.get('EMAIL_HOST_PASSWORD')
-EMAIL_HOST = 'smtp.gmail.com' #os.environ.get('EMAIL_HOST')
-EMAIL_FROM = 'ticketwave001@gmail.com' #os.environ.get('EMAIL_FROM')
+EMAIL_HOST_USER =  os.environ.get('EMAIL_HOST_USER') 
+EMAIL_HOST_PASSWORD =  os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_HOST = 'smtp.gmail.com' 
+EMAIL_FROM = os.environ.get('EMAIL_FROM')
 VERIFICATION_SUCCESS_TEMPLATE = None 
 
 
@@ -239,15 +240,6 @@ SOCIALACCOUNT_PROVIDERS = {
             'last_name',
             'middle_name',
             'name',
-            'name_format',
-            'picture',
-            'short_name',
-            'verified',
-            'locale',
-            'timezone',
-            'link',
-            'gender',
-            'updated_time'
         ],
         'EXCHANGE_TOKEN': True,
         'LOCALE_FUNC': lambda request: 'en_US',

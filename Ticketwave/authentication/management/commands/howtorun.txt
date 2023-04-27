@@ -1,0 +1,7 @@
+#commands for scripts 
+# python manage.py site_register_db
+# python manage.py google_register_db
+# python manage.py facebook_register_db
+
+runs only once at the database creation
+otherwise will Generate multiple social clients that will need to be removed

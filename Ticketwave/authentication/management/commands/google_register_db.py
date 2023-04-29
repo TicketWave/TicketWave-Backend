@@ -13,17 +13,21 @@ class Command(BaseCommand):
             # Get the current site
             current_site = Site.objects.get_current()
 
-            # Create a new social application for the Google provider
-            google_app = SocialApp.objects.create(
-                provider='google',
-                name='Google',
-                client_id=client_id,
-                secret=secret_key
-            )
+            # Check if a Google provider already exists
+            if not SocialApp.objects.filter(provider='google').exists():
+                # Create a new social application for the Google provider
+                google_app = SocialApp.objects.create(
+                    provider='google',
+                    name='Google',
+                    client_id=client_id,
+                    secret=secret_key
+                )
 
-            # Associate the social application with the current site
-            google_app.sites.add(current_site)
+                # Associate the social application with the current site
+                google_app.sites.add(current_site)
 
-            self.stdout.write(self.style.SUCCESS('Successfully created a new social application for the Google provider'))
+                self.stdout.write(self.style.SUCCESS('Successfully created a new social application for the Google provider'))
+            else:
+                self.stdout.write(self.style.WARNING('A Google provider already exists'))
         except:
-            self.stdout.write(self.style.ERROR('error might already created or other error'))
+            self.stdout.write(self.style.ERROR('An error occurred'))

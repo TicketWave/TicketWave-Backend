@@ -13,17 +13,21 @@ class Command(BaseCommand):
         # Get the current site
         current_site = Site.objects.get_current()
         try:
-            # Create a new social application for the Facebook provider
-            facebook_app = SocialApp.objects.create(
-                provider='facebook',
-                name='Facebook',
-                client_id=app_id,
-                secret=secret_key
-            )
+            # Check if a Facebook provider already exists
+            if not SocialApp.objects.filter(provider='facebook').exists():
+                # Create a new social application for the Facebook provider
+                facebook_app = SocialApp.objects.create(
+                    provider='facebook',
+                    name='Facebook',
+                    client_id=app_id,
+                    secret=secret_key
+                )
 
-            # Associate the social application with the current site
-            facebook_app.sites.add(current_site)
+                # Associate the social application with the current site
+                facebook_app.sites.add(current_site)
 
-            self.stdout.write(self.style.SUCCESS('Successfully created a new social application for the Facebook provider'))
+                self.stdout.write(self.style.SUCCESS('Successfully created a new social application for the Facebook provider'))
+            else:
+                self.stdout.write(self.style.WARNING('A Facebook provider already exists'))
         except:
-            self.stdout.write(self.style.ERROR('error might already created or other error'))
+            self.stdout.write(self.style.ERROR('An error occurred'))

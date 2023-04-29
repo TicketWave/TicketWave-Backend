@@ -53,9 +53,6 @@ class venue_Create(CreateAPIView):
         latitude = self.request.data.get('latitude', None)
         longitude = self.request.data.get('longitude', None)
         
-        name = self.request.data.get('name', None)
-        latitude = self.request.data.get('latitude', None)
-        longitude = self.request.data.get('longitude', None)
         
         # Check if name, latitude, and longitude are provided
         if name is None or not latitude is None or not longitude is None:

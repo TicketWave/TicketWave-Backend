@@ -14,7 +14,7 @@ class Command(BaseCommand):
         current_site = Site.objects.get_current()
         try:
             # Check if a Facebook provider already exists
-            if not SocialApp.objects.filter(provider='facebook').exists():
+            if len( SocialApp.objects.filter(provider='facebook') ) == 0:
                 # Create a new social application for the Facebook provider
                 facebook_app = SocialApp.objects.create(
                     provider='facebook',

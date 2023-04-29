@@ -14,7 +14,7 @@ class Command(BaseCommand):
             current_site = Site.objects.get_current()
 
             # Check if a Google provider already exists
-            if not SocialApp.objects.filter(provider='google').exists():
+            if len( SocialApp.objects.filter(provider='google') ) == 0:
                 # Create a new social application for the Google provider
                 google_app = SocialApp.objects.create(
                     provider='google',

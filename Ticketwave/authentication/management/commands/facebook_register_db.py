@@ -1,14 +1,14 @@
 from allauth.socialaccount.models import SocialApp
 from django.contrib.sites.models import Site
 from django.core.management.base import BaseCommand
-import os
+from decouple import config
 
 class Command(BaseCommand):
     help = 'Creates a new social application for the Facebook provider'
 
     def handle(self, *args, **options):
-        app_id = os.environ.get('FACEBOOK_APP_ID')
-        secret_key = os.environ.get('FACEBOOK_APP_SECRET_KEY')
+        app_id = config('FACEBOOK_APP_ID')
+        secret_key = config('FACEBOOK_APP_SECRET_KEY')
 
         # Get the current site
         current_site = Site.objects.get_current()

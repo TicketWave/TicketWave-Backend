@@ -1,5 +1,6 @@
 from .models import Event
 from orders.models import Order
+from tickets.models import Ticket
 from .serializers import event_Serializer, event_private_Serializer, IncrementViewSerializer
 from .filters import eventFilter
 from .pagination import StandardResultsSetPagination
@@ -268,6 +269,16 @@ class event_follower_count(APIView):
 
         follower_count = event.followers.count()
         return Response({'follower_count': follower_count})
+    
+class event_follower_count(APIView):
+    permission_classes = [AllowAny]
+    def get(self, request, event_id):
+        try:
+            ticket = Ticket.objects.get(event=event_id)
+        except Ticket.DoesNotExist:
+            return Response(status=404)
+
+        return Response({'price': ticket.price})
 
 def check_order_status(event):
     orders = Order.objects.filter(event=event)

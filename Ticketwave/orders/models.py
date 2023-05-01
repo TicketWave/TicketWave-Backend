@@ -2,6 +2,7 @@ from django.db import models
 
 from events.models import Event
 from users.models import Users
+from attendees.models import Attendees
 # Create your models here.
 
 
@@ -28,8 +29,8 @@ class Order(models.Model):
         Event, on_delete=models.CASCADE, related_name='order')
     user = models.ForeignKey(
         Users, on_delete=models.CASCADE, related_name='order')
-    #attendee = models.ForeignKey(
-    #    Attendee, on_delete=models.CASCADE, related_name='order')
+    attendee = models.ForeignKey(
+        Attendees, on_delete=models.CASCADE, related_name='order')
 
     def __str__(self):
         return self.first_name + self.last_name

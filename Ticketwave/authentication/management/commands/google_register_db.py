@@ -1,14 +1,14 @@
 from allauth.socialaccount.models import SocialApp
 from django.contrib.sites.models import Site
 from django.core.management.base import BaseCommand
-import os
+from decouple import config
 
 class Command(BaseCommand):
     help = 'Creates a new social application for the Google provider'
 
     def handle(self, *args, **options):
-        client_id = os.environ.get('GOOGLE_CLIENT_ID') 
-        secret_key = os.environ.get('GOOGLE_SECRET_KEY')
+        client_id = config('GOOGLE_CLIENT_ID') 
+        secret_key = config('GOOGLE_SECRET_KEY')
         try:
             # Get the current site
             current_site = Site.objects.get_current()

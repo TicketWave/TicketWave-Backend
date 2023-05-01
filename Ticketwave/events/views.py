@@ -270,7 +270,7 @@ class event_follower_count(APIView):
         follower_count = event.followers.count()
         return Response({'follower_count': follower_count})
     
-class event_follower_count(APIView):
+class event_price(APIView):
     permission_classes = [AllowAny]
     def get(self, request, event_id):
         try:

@@ -229,6 +229,28 @@ class event_increment_view_counter(UpdateAPIView):
         instance.save()
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
+    
+class event_sales_total_and_sales_by_ticket(APIView):
+    def get(self, request, event_id, *args, **kwargs):
+        try:
+            total = 0
+            Tickets = Ticket.objects.filter(event=event_id)
+            for ticket in Tickets:
+                total += ticket.price * ticket.amount
+            return Response(status=200, data={"sales total": total})
+        except:
+            return Response(status=400)
+        
+class event_amount_tickets_sold(APIView):
+    def get(self, request, event_id, *args, **kwargs):
+        try:
+            total = 0
+            Tickets = Ticket.objects.filter(event=event_id)
+            for ticket in Tickets:
+                total += ticket.amount
+            return Response(status=200, data={"tickets sold": total})
+        except:
+            return Response(status=400)
 
 
 class follow_event(APIView):
@@ -274,7 +296,7 @@ class event_price(APIView):
     permission_classes = [AllowAny]
     def get(self, request, event_id):
         try:
-            ticket = Ticket.objects.get(event=event_id)
+            ticket = Ticket.objects.filter(event=event_id).first()
         except Ticket.DoesNotExist:
             return Response(status=404)
 
@@ -288,11 +310,14 @@ def check_order_status(event):
     return True
 
 def check_publish_requirements(event):
-    if event.name == '' and event.description == '': 
-            return False
-    if len(Ticket.objects.filter(event=event)) == 0: return False
-    #check for valid payment option too, required, done, not implmemented in this project
-    return True
+    try:
+        if event.name == '' and event.description == '': 
+                return False
+        if len(Ticket.objects.filter(event=event)) == 0: return False
+        #check for valid payment option too, required, done, not implmemented in this project
+        return True
+    except:
+        return False
 
 class event_unpublish(APIView):
     permission_classes = [IsAuthenticated, Is_eventowner]

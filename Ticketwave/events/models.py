@@ -2,6 +2,7 @@ from django.db import models
 from users.models import Users
 from categories.models import Categories
 from venues.models import Venue
+from tags.models import Tags
 from django.core.validators import MinValueValidator
 
 # Create your models here.
@@ -68,7 +69,8 @@ class Event(models.Model):
     followers = models.ManyToManyField(Users, related_name='following_event')
     venue = models.ForeignKey(
         Venue, on_delete=models.CASCADE, related_name='event')
-    
+    tags = models.ManyToManyField(Tags, on_delete=models.CASCADE, related_name='event')
+
     # private fields will limit access to by serializer
 
     listed = models.BooleanField(default=True)

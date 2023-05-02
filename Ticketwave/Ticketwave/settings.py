@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'django_filters',
     'allauth.socialaccount.providers.facebook',
     'corsheaders',
+    'tags',
 ]
 
 MIDDLEWARE = [

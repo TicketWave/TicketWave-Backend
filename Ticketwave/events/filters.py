@@ -34,6 +34,9 @@ class eventFilter(filters.FilterSet):
             'venue__address': ['exact'],
             'venue__latitude': ['gte', 'lte'],
             'venue__longitude': ['gte', 'lte'],
+            
+            'tags__name': ['exact', 'in'],
+            'tags': ['exact', 'in'],
 
         }
 

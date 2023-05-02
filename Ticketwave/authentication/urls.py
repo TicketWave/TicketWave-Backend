@@ -4,7 +4,7 @@ from .email_verification import activate_email, send_verification_email
 from .passwordverification import send_password_reset_email
 from .views import GoogleConnect, google_callback, FacebookConnect, facebook_callback
 from dj_rest_auth.urls import LoginView, LogoutView, PasswordChangeView, get_refresh_view, TokenVerifyView
-#from allauth.socialaccount.providers.google import views as googleviewlogin #form is handled in front end just for testing here
+from allauth.socialaccount.providers.google import views as googleviewlogin #form is handled in front end just for testing here
 
 urlpatterns = [
     
@@ -27,7 +27,7 @@ urlpatterns = [
     #sociaapi/l logins (google login and facebook login)
     path('api/google/login/connect/', GoogleConnect.as_view(), name = 'google_connect'),
     path('api/google/login/callback/', google_callback, name = 'google_callback'),
-    #path('google/login/login/', googleviewlogin.oauth2_login, name = 'googleviewlogin'), #form for testing login in backend should be done in front for real project
+    path('google/login/login/', googleviewlogin.oauth2_login, name = 'googleviewlogin'), #form for testing login in backend should be done in front for real project
     
     path('api/facebook/login/connect/', FacebookConnect.as_view(), name = 'facebook_connect'),
     path('api/facebook/login/callback/', facebook_callback, name = 'facebook_callback'),

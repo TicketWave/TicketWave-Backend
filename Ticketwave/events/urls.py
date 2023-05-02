@@ -17,7 +17,7 @@ urlpatterns = [
 
     path('increment_view_counter/<pk>/', event_increment_view_counter.as_view()),
     path('follow_event/<event_id>/', follow_event.as_view()),
-    path('add_tag/<event_id>/<tag_id>/', event_tags.as_view()),
+    path('event_tags/<event_id>/<tag_id>/', event_tags.as_view()),
     path('event_follower_count/<event_id>/', event_follower_count.as_view()),
 
     path('event_count_query/', event_count_query.as_view()),

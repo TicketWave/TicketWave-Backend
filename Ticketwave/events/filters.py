@@ -27,6 +27,8 @@ class eventFilter(filters.FilterSet):
             'recurring_start_day': ['exact'],
             'recurring_end_month': ['exact'],
             'recurring_start_month': ['exact'],
+            'recurring_end_year': ['exact'],
+            'recurring_start_year': ['exact'],
             'recurring_frequency' : ['exact'],
 
             'category': ['exact', 'in'],

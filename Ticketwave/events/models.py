@@ -79,6 +79,8 @@ class Event(models.Model):
     recurring_end_day = models.CharField(max_length=16, default='saturday', choices=day_choices)
     recurring_start_month = models.CharField(max_length=16, default='january', choices=month_choices)
     recurring_end_month = models.CharField(max_length=16, default='january', choices=month_choices)
+    recurring_start_year = models.PositiveIntegerField(default=2023)
+    recurring_end_year = models.PositiveIntegerField(default=2023)
     recurring_frequency = models.CharField(max_length=16, default='monthly', choices=rec_choices)
     
     to_be_announced = models.BooleanField(default=False)

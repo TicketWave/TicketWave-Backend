@@ -27,7 +27,7 @@ urlpatterns = [
     #sociaapi/l logins (google login and facebook login)
     path('api/google/login/connect/', GoogleConnect.as_view(), name = 'google_connect'),
     path('api/google/login/callback/', google_callback, name = 'google_callback'),
-    path('google/login/login/', googleviewlogin.oauth2_login, name = 'googleviewlogin'), #form for testing login in backend should be done in front for real project
+    path('api/google/login/login/', googleviewlogin.oauth2_login, name = 'googleviewlogin'), #form for testing login in backend should be done in front for real project
     
     path('api/facebook/login/connect/', FacebookConnect.as_view(), name = 'facebook_connect'),
     path('api/facebook/login/callback/', facebook_callback, name = 'facebook_callback'),

@@ -1,12 +1,13 @@
 from django.db import models
-
+from events.models import Event
+from users.models import Users
 # Create your models here.
 
 
 class Ticket(models.Model):
     name = models.CharField(max_length=255)
-    user = models.IntegerField()
-    event = models.IntegerField()
+    user = models.ForeignKey(Users, on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
     # user and event will be replaced with foreign key field later 
     price = models.FloatField()
     SalesStart = models.DateTimeField()

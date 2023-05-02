@@ -7,7 +7,65 @@ from tickets.models import Ticket
 from tickets.serlializers import TicketSerializer
    
 
-class TicketList(GenericAPIView):
+# @api_view(['GET'])
+# def ApiOverview(request):
+# 	api_urls = {
+# 		'all_tickets': '/',
+# 		'Search by Category': '/?category=category_name',
+# 		'Search by Subcategory': '/?subcategory=category_name',
+# 		'Add': '/create',
+# 		'Update': '/update/pk',
+# 		'Delete': '/item/pk/delete'
+# 	}
+
+# 	return Response(api_urls)
+
+# class add_tickets(APIView):
+# 	queryset = Ticket.objects.all()
+# 	def post(request):
+# 		ticket_class = TicketSerializer(data=request.data)
+# 		if Ticket.objects.filter(**request.data).exists():
+# 				raise serializers.ValidationError('This data already exists')
+		
+# 		if ticket_class.is_valid():
+# 			ticket_class.save()
+# 			return Response(ticket_class.data)
+# 		else:
+# 			return Response(status=status.HTTP_404_NOT_FOUND)
+		
+# class update_tickets(APIView):
+# 	queryset = Ticket.objects.all()
+# 	def put(request, pk):
+# 		queryset = Ticket.objects.all()
+# 		ticket_class = Ticket.objects.get(pk=pk)
+# 		data = TicketSerializer(instance=ticket_class, data=request.data)
+	
+# 		if data.is_valid():
+# 			data.save()
+# 			return Response(data.data)
+# 		else:
+# 			return Response(status=status.HTTP_404_NOT_FOUND)
+	
+# class view_tickets(APIView):
+	
+# 	queryset = Ticket.objects.all()
+# 	def get(request, *args, **kwargs):
+# 		queryset = Ticket.objects.all()
+# 		# checking for the parameters from the URL
+# 		try:
+# 			tickets = Ticket.objects.all()
+# 		except:
+# 			return Response(status=status.HTTP_404_NOT_FOUND)
+
+# 		# if there is something in items else raise error
+# 		if tickets:
+# 			serializer = TicketSerializer(tickets, many=True)
+# 			return Response(serializer.data)
+# 		else:
+# 			return Response(status=status.HTTP_404_NOT_FOUND)
+    
+
+class TicketList(APIView):
     """
     List all Tickets, or create a new Ticket
     """
@@ -15,8 +73,13 @@ class TicketList(GenericAPIView):
     serializer_class = TicketSerializer
     queryset = Ticket.objects.all()
   
-    def get(self, request, format=None):
-        tickets = Ticket.objects.all()
+    def get(self, request, model=None, pk=None, format=None):
+        if model == "user":
+            tickets = Ticket.objects.filter(user=pk)
+        elif model == "event":
+            tickets = Ticket.objects.filter(event=pk)
+        else:
+            tickets = Ticket.objects.all()
         serializer = TicketSerializer( tickets, many=True)
         return Response(serializer.data)
   
@@ -32,7 +95,7 @@ class TicketDetail(APIView):
     """
     Retrieve, update or delete a ticket instance
     """
-    def get_object(self, pk):
+    def get_object(self, pk): 
         # Returns an object instance that should 
         # be used for detail views.
         try:
@@ -65,6 +128,6 @@ class TicketDetail(APIView):
           
   
     def delete(self, request, pk, format=None):
-        transformer = self.get_object(pk)
-        transformer.delete()
+        ticket = self.get_object(pk)
+        ticket.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)    

@@ -3,6 +3,7 @@ from .serializers import tags_Serializer
 from .pagination import StandardResultsSetPagination
 from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, RetrieveAPIView, UpdateAPIView
 from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly, IsAuthenticated
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 class tag_List(ListAPIView):
@@ -12,6 +13,8 @@ class tag_List(ListAPIView):
     serializer_class = tags_Serializer
     pagination_class = StandardResultsSetPagination
     permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['name']
 
 class tag_Retrieve(RetrieveAPIView):
     queryset = Tags.objects.all()

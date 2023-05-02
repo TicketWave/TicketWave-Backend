@@ -51,8 +51,8 @@ class Event(models.Model):
         Categories, on_delete=models.SET_DEFAULT, default=1, related_name='event')
 
     followers = models.ManyToManyField(Users, related_name='following_event')
-    venue = models.OneToOneField(
-        Venue, on_delete=models.SET_DEFAULT, default=1, related_name='event')
+    venue = models.ForeignKey(
+        Venue, on_delete=models.CASCADE, related_name='event')
 
     # private fields will limit access to by serializer
 

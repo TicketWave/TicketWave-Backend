@@ -290,8 +290,8 @@ def check_order_status(event):
 def check_publish_requirements(event):
     if event.name == '' and event.description == '': 
             return False
-    #if len(tickets.objects.filter(event=event)) == 0: return false
-    #check for valid payment option too, required
+    if len(Ticket.objects.filter(event=event)) == 0: return False
+    #check for valid payment option too, required, done, not implmemented in this project
     return True
 
 class event_unpublish(APIView):
@@ -341,9 +341,42 @@ class event_copy(APIView):
     def get(self, request, event_id):
         try:
             try:
-                event = Event.objects.get(id=event_id)
-                event.pk = None
-                event.save()
+                original_event = Event.objects.get(id=event_id)
+                # event.pk = None
+                # event.save()
+                self.event = Event.objects.create(
+            name=original_event.name,
+            summary=original_event.summary,
+            description=original_event.description,
+            url=original_event.url,
+            online_event=original_event.online_event,
+            hide_start_date=original_event.hide_start_date,
+            hide_end_date=original_event.hide_end_date,
+            free=original_event.free,
+            waitlist=original_event.waitlist,
+            status = original_event.status,
+            view_counter=0,
+            age_restriction=original_event.age_restriction,
+            fully_booked=original_event.fully_booked,
+            published=original_event.published,
+            organizer=original_event.organizer,
+            video_url=original_event.video_url,
+            timezone=original_event.timezone,
+            language=original_event.language,
+            listed=original_event.listed,
+            shareable=original_event.shareable,
+            invite_only=original_event.invite_only,
+            show_remaining=original_event.show_remaining,
+            capacity=original_event.capacity,
+            capacity_is_custom=original_event.capacity_is_custom,
+            start=original_event.start, #datetime.datetime(2004,3,14,12,1),  #"2004-03-15 12:01",
+            end=original_event.end,#datetime.datetime(2005,3,14,12,1), #"2005-03-15 12:01",
+            
+            owner=original_event.owner,
+            category=original_event.category,
+            venue=original_event.venue
+            
+        )
                 return Response({'copy': True}, status=200)
             except:
                 return Response({'copy': False}, status=400)

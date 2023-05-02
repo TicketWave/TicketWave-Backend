@@ -237,7 +237,7 @@ class event_sales_total_and_sales_by_ticket(APIView):
             Tickets = Ticket.objects.filter(event=event_id)
             for ticket in Tickets:
                 total += ticket.price * ticket.amount
-            return Response(status=200, data={"sales total": total})
+            return Response(status=200, data={"total sales": total})
         except:
             return Response(status=400)
         

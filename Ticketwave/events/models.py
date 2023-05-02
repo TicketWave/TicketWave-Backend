@@ -27,6 +27,25 @@ class Event(models.Model):
     ('saturday', 'saturday'),
     ('sunday', 'sunday'),
     ]
+    month_choices = [
+    ('january', 'january'),
+    ('february', 'february'),
+    ('march', 'march'),
+    ('april', 'april'),
+    ('may', 'may'),
+    ('june', 'june'),
+    ('july', 'july'),
+    ('august', 'august'),
+    ('september', 'september'),
+    ('october', 'october'),
+    ('november', 'november'),
+    ('december', 'december')
+    ]
+    rec_choices = [
+        ('daily', 'daily'),
+        ('weekly', 'weekly'),
+        ('monthly', 'monthly')
+    ]
     
     name = models.CharField(max_length=80)
     summary = models.TextField(blank=True)
@@ -58,6 +77,9 @@ class Event(models.Model):
     recurring = models.BooleanField(default=False)
     recurring_start_day = models.CharField(max_length=16, default='saturday', choices=day_choices)
     recurring_end_day = models.CharField(max_length=16, default='saturday', choices=day_choices)
+    recurring_start_month = models.CharField(max_length=16, default='january', choices=month_choices)
+    recurring_end_month = models.CharField(max_length=16, default='january', choices=month_choices)
+    recurring_frequency = models.CharField(max_length=16, default='monthly', choices=rec_choices)
     
     to_be_announced = models.BooleanField(default=False)
 

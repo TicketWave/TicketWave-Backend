@@ -22,6 +22,12 @@ class eventFilter(filters.FilterSet):
             'end': ['exact', 'gte', 'lte'],
             'created': ['exact', 'gte', 'lte'],
             'changed': ['exact', 'gte', 'lte'],
+            
+            'recurring_end_day': ['exact'],
+            'recurring_start_day': ['exact'],
+            'recurring_end_month': ['exact'],
+            'recurring_start_month': ['exact'],
+            'recurring_frequency' : ['exact'],
 
             'category': ['exact', 'in'],
             'category__parent_category': ['exact'],

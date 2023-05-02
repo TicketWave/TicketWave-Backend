@@ -279,6 +279,33 @@ class follow_event(APIView):
 
         event.followers.remove(user)
         return Response(status=200)
+    
+class event_tags(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, event_id, tag_id):
+        user = request.user
+        if not user.is_authenticated:
+            return Response(status=401)
+        try:
+            event = Event.objects.get(id=event_id)
+            tag = Event.objects.get(id=tag_id)
+        except:
+            return Response(status=404)
+        event.tags.add(tag)
+        return Response(status=200)
+
+    def delete(self, request, event_id, tag_id):
+        user = request.user
+        if not user.is_authenticated:
+            return Response(status=401)
+        try:
+            event = Event.objects.get(id=event_id)
+            tag = Event.objects.get(id=tag_id)
+        except:
+            return Response(status=404)
+        event.tags.remove(tag)
+        return Response(status=200)
 
 
 class event_follower_count(APIView):

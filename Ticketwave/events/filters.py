@@ -22,6 +22,14 @@ class eventFilter(filters.FilterSet):
             'end': ['exact', 'gte', 'lte'],
             'created': ['exact', 'gte', 'lte'],
             'changed': ['exact', 'gte', 'lte'],
+            
+            'recurring_end_day': ['exact'],
+            'recurring_start_day': ['exact'],
+            'recurring_end_month': ['exact'],
+            'recurring_start_month': ['exact'],
+            'recurring_end_year': ['exact'],
+            'recurring_start_year': ['exact'],
+            'recurring_frequency' : ['exact'],
 
             'category': ['exact', 'in'],
             'category__parent_category': ['exact'],
@@ -34,6 +42,9 @@ class eventFilter(filters.FilterSet):
             'venue__address': ['exact'],
             'venue__latitude': ['gte', 'lte'],
             'venue__longitude': ['gte', 'lte'],
+            
+            'tags__name': ['exact', 'in'],
+            'tags': ['exact', 'in'],
 
         }
 

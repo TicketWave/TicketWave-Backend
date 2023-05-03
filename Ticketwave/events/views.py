@@ -106,6 +106,22 @@ class event_List(ListAPIView):
                     queryset = queryset.filter(invite_only__in=[True])
                 elif invite_only.lower() == 'false':
                     queryset = queryset.filter(invite_only__in=[False])
+            
+            to_be_announced = self.request.query_params.get(
+                'to_be_announced', None)
+            if to_be_announced is not None:
+                if to_be_announced.lower() == 'true':
+                    queryset = queryset.filter(to_be_announced__in=[True])
+                elif to_be_announced.lower() == 'false':
+                    queryset = queryset.filter(to_be_announced__in=[False])
+            
+            recurring = self.request.query_params.get(
+                'recurring', None)
+            if recurring is not None:
+                if recurring.lower() == 'true':
+                    queryset = queryset.filter(recurring__in=[True])
+                elif recurring.lower() == 'false':
+                    queryset = queryset.filter(recurring__in=[False])
 
         except:
             # pass
@@ -204,6 +220,22 @@ class event_count_query(ListAPIView):
                     queryset = queryset.filter(invite_only__in=[True])
                 elif invite_only.lower() == 'false':
                     queryset = queryset.filter(invite_only__in=[False])
+                    
+            to_be_announced = self.request.query_params.get(
+                'to_be_announced', None)
+            if to_be_announced is not None:
+                if to_be_announced.lower() == 'true':
+                    queryset = queryset.filter(to_be_announced__in=[True])
+                elif to_be_announced.lower() == 'false':
+                    queryset = queryset.filter(to_be_announced__in=[False])
+            
+            recurring = self.request.query_params.get(
+                'recurring', None)
+            if recurring is not None:
+                if recurring.lower() == 'true':
+                    queryset = queryset.filter(recurring__in=[True])
+                elif recurring.lower() == 'false':
+                    queryset = queryset.filter(recurring__in=[False])
 
         except:
             # pass

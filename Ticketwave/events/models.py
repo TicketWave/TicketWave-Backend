@@ -44,7 +44,8 @@ class Event(models.Model):
     rec_choices = [
         ('daily', 'daily'),
         ('weekly', 'weekly'),
-        ('monthly', 'monthly')
+        ('monthly', 'monthly'),
+        ('yearly', 'yearly')
     ]
     
     name = models.CharField(max_length=80)

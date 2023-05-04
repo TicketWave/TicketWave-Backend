@@ -31,8 +31,10 @@ class eventFilter(filters.FilterSet):
             'recurring_start_year': ['exact'],
             'recurring_frequency' : ['exact'],
 
-            'category': ['exact', 'in'],
-            'category__parent_category': ['exact'],
+            #'category': ['exact', 'in'],
+            #'category__parent_category': ['exact'],
+            'category': ['exact'],
+            'sub_category': ['exact'],
 
             'venue': ['exact', 'in'],
             'venue__name': ['exact'],

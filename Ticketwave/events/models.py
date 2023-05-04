@@ -88,9 +88,10 @@ class Event(models.Model):
 
     owner = models.ForeignKey(
         Users, on_delete=models.CASCADE, default=1, related_name='event')
-    category = models.ForeignKey(
-        Categories, on_delete=models.CASCADE, null=True, blank=True, related_name='event')
-
+    #category = models.ForeignKey(
+    #    Categories, on_delete=models.CASCADE, null=True, blank=True, related_name='event')
+    category = models.CharField(max_length=40)
+    sub_category = models.CharField(max_length=40, blank=True)
     followers = models.ManyToManyField(Users, related_name='following_event', blank= True)
     venue = models.ForeignKey(
         Venue, on_delete=models.CASCADE, related_name='event', null=True, blank=True)

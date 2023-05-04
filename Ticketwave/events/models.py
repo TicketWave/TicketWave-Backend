@@ -94,7 +94,7 @@ class Event(models.Model):
     followers = models.ManyToManyField(Users, related_name='following_event', blank= True, null=True)
     venue = models.ForeignKey(
         Venue, on_delete=models.CASCADE, related_name='event', null=True, blank=True)
-    tags = models.ManyToManyField(Tags, on_delete=models.CASCADE, related_name='event', blank= True, null=True)
+    tags = models.ManyToManyField(Tags, related_name='event', blank= True, null=True)
 
     # private fields will limit access to by serializer
 

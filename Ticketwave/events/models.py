@@ -51,7 +51,7 @@ class Event(models.Model):
     name = models.CharField(max_length=80)
     summary = models.TextField(blank=True)
     description = models.TextField(blank=True)
-    url = models.URLField(blank=True, null=True)
+    url = models.URLField(blank=True)
     start = models.DateTimeField(blank=True, null=True)  # "2004-03-15 12:01" format value example
     end = models.DateTimeField(blank=True, null=True)
     # changes automatically as added
@@ -71,7 +71,7 @@ class Event(models.Model):
     fully_booked = models.BooleanField(default=False)
     published = models.BooleanField(default=False)
     organizer = models.CharField(max_length=80)
-    video_url = models.URLField(blank=True, null=True)
+    video_url = models.URLField(blank=True)
     timezone = models.CharField(max_length=60)
     language = models.CharField(max_length=60)
     

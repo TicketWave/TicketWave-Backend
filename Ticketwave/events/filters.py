@@ -35,6 +35,7 @@ class eventFilter(filters.FilterSet):
             #'category__parent_category': ['exact'],
             'category': ['exact'],
             'sub_category': ['exact'],
+            'type': ['exact'],
 
             'venue': ['exact', 'in'],
             'venue__name': ['exact'],

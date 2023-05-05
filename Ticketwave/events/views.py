@@ -22,7 +22,7 @@ class event_List(ListAPIView):
     pagination_class = StandardResultsSetPagination
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_class = eventFilter
-    search_fields = ['^name']
+    search_fields = ['name']
     ordering_fields = ['name', 'start', 'end',
                        'created', 'changed', 'view_counter']
 

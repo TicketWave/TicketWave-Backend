@@ -32,7 +32,7 @@ class venue_Update(UpdateAPIView):
     queryset = Venue.objects.all()
     lookup_field = 'pk'
     serializer_class = venue_Serializer
-    #permission_classes = [IsAuthenticated, Is_venueowner]
+    permission_classes = [IsAuthenticated, Is_venueowner]
     
     def put(self, request, *args, **kwargs):
         kwargs['partial'] = True
@@ -41,24 +41,21 @@ class venue_Update(UpdateAPIView):
 class venue_Destroy(DestroyAPIView):
     queryset = Venue.objects.all()
     serializer_class = venue_Serializer
-    #permission_classes = [IsAuthenticated, Is_venueowner]
+    permission_classes = [IsAuthenticated, Is_venueowner]
 
 class venue_Create(CreateAPIView):
     queryset = Venue.objects.all()
     serializer_class = venue_Serializer
-    #permission_classes = [IsAuthenticated] 
+    permission_classes = [IsAuthenticated] 
     
     def perform_create(self, serializer):
         name = self.request.data.get('name', None)
         latitude = self.request.data.get('latitude', None)
         longitude = self.request.data.get('longitude', None)
         
-        name = self.request.data.get('name', None)
-        latitude = self.request.data.get('latitude', None)
-        longitude = self.request.data.get('longitude', None)
         
         # Check if name, latitude, and longitude are provided
-        if name is None or not latitude is None or not longitude is None:
+        if name == None or latitude == None or longitude == None:
             return Response({'error': 'Name, latitude, and longitude are required'}, status=400)
 
         # Check if latitude and longitude are valid
@@ -95,7 +92,7 @@ class venue_get_location(APIView):
             latitude = self.request.data.get('latitude', None)
             longitude = self.request.data.get('longitude', None)
             
-            if latitude is None or longitude is None: return Response(status=400)
+            if latitude == None or longitude == None: return Response(status=400)
             
             latitude = float(latitude)
             longitude = float(longitude)

@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 from decouple import config
-import os
 
 
 
@@ -27,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY') #os.environ.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True #os.environ.get('DJANGO_DEBUG')
+DEBUG = False #os.environ.get('DJANGO_DEBUG')
 
 ALLOWED_HOSTS = ['backend']
 
@@ -63,7 +62,11 @@ INSTALLED_APPS = [
     'django_filters',
     'allauth.socialaccount.providers.facebook',
     'corsheaders',
+<<<<<<< HEAD
+    'django.contrib.site',
+=======
     'tags',
+>>>>>>> 0a459a4f18f6cb70f12569837695abae3fc41529
 ]
 
 MIDDLEWARE = [
@@ -175,10 +178,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com' 
 EMAIL_PORT = 587 #os.environ.get('EMAIL_PORT') 
 EMAIL_USE_TLS = True 
-EMAIL_HOST_USER =  'ticketwave001@gmail.com' #os.environ.get('EMAIL_HOST_USER') 
-EMAIL_HOST_PASSWORD =  'zxuhoelupwlvobem' #os.environ.get('EMAIL_HOST_PASSWORD')
-EMAIL_HOST = 'smtp.gmail.com' #os.environ.get('EMAIL_HOST')
-EMAIL_FROM = 'ticketwave001@gmail.com' #os.environ.get('EMAIL_FROM')
+EMAIL_HOST_USER =  config('EMAIL_HOST_USER') 
+EMAIL_HOST_PASSWORD =  config('EMAIL_HOST_PASSWORD')
+EMAIL_HOST = 'smtp.gmail.com' 
+EMAIL_FROM = config('EMAIL_FROM')
 VERIFICATION_SUCCESS_TEMPLATE = None 
 
 
@@ -242,15 +245,6 @@ SOCIALACCOUNT_PROVIDERS = {
             'last_name',
             'middle_name',
             'name',
-            'name_format',
-            'picture',
-            'short_name',
-            'verified',
-            'locale',
-            'timezone',
-            'link',
-            'gender',
-            'updated_time'
         ],
         'EXCHANGE_TOKEN': True,
         'LOCALE_FUNC': lambda request: 'en_US',

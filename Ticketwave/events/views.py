@@ -106,6 +106,22 @@ class event_List(ListAPIView):
                     queryset = queryset.filter(invite_only__in=[True])
                 elif invite_only.lower() == 'false':
                     queryset = queryset.filter(invite_only__in=[False])
+            
+            to_be_announced = self.request.query_params.get(
+                'to_be_announced', None)
+            if to_be_announced is not None:
+                if to_be_announced.lower() == 'true':
+                    queryset = queryset.filter(to_be_announced__in=[True])
+                elif to_be_announced.lower() == 'false':
+                    queryset = queryset.filter(to_be_announced__in=[False])
+            
+            recurring = self.request.query_params.get(
+                'recurring', None)
+            if recurring is not None:
+                if recurring.lower() == 'true':
+                    queryset = queryset.filter(recurring__in=[True])
+                elif recurring.lower() == 'false':
+                    queryset = queryset.filter(recurring__in=[False])
 
         except:
             # pass
@@ -204,6 +220,22 @@ class event_count_query(ListAPIView):
                     queryset = queryset.filter(invite_only__in=[True])
                 elif invite_only.lower() == 'false':
                     queryset = queryset.filter(invite_only__in=[False])
+                    
+            to_be_announced = self.request.query_params.get(
+                'to_be_announced', None)
+            if to_be_announced is not None:
+                if to_be_announced.lower() == 'true':
+                    queryset = queryset.filter(to_be_announced__in=[True])
+                elif to_be_announced.lower() == 'false':
+                    queryset = queryset.filter(to_be_announced__in=[False])
+            
+            recurring = self.request.query_params.get(
+                'recurring', None)
+            if recurring is not None:
+                if recurring.lower() == 'true':
+                    queryset = queryset.filter(recurring__in=[True])
+                elif recurring.lower() == 'false':
+                    queryset = queryset.filter(recurring__in=[False])
 
         except:
             # pass
@@ -229,6 +261,28 @@ class event_increment_view_counter(UpdateAPIView):
         instance.save()
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
+    
+class event_sales_total_and_sales_by_ticket(APIView):
+    def get(self, request, event_id, *args, **kwargs):
+        try:
+            total = 0
+            Tickets = Ticket.objects.filter(event=event_id)
+            for ticket in Tickets:
+                total += ticket.price * ticket.amount
+            return Response(status=200, data={"total sales": total})
+        except:
+            return Response(status=400)
+        
+class event_amount_tickets_sold(APIView):
+    def get(self, request, event_id, *args, **kwargs):
+        try:
+            total = 0
+            Tickets = Ticket.objects.filter(event=event_id)
+            for ticket in Tickets:
+                total += ticket.amount
+            return Response(status=200, data={"tickets sold": total})
+        except:
+            return Response(status=400)
 
 
 class follow_event(APIView):
@@ -257,6 +311,33 @@ class follow_event(APIView):
 
         event.followers.remove(user)
         return Response(status=200)
+    
+class event_tags(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, event_id, tag_id):
+        user = request.user
+        if not user.is_authenticated:
+            return Response(status=401)
+        try:
+            event = Event.objects.get(id=event_id)
+            tag = Event.objects.get(id=tag_id)
+        except:
+            return Response(status=404)
+        event.tags.add(tag)
+        return Response(status=200)
+
+    def delete(self, request, event_id, tag_id):
+        user = request.user
+        if not user.is_authenticated:
+            return Response(status=401)
+        try:
+            event = Event.objects.get(id=event_id)
+            tag = Event.objects.get(id=tag_id)
+        except:
+            return Response(status=404)
+        event.tags.remove(tag)
+        return Response(status=200)
 
 
 class event_follower_count(APIView):
@@ -274,7 +355,7 @@ class event_price(APIView):
     permission_classes = [AllowAny]
     def get(self, request, event_id):
         try:
-            ticket = Ticket.objects.get(event=event_id)
+            ticket = Ticket.objects.filter(event=event_id).first()
         except Ticket.DoesNotExist:
             return Response(status=404)
 
@@ -288,11 +369,14 @@ def check_order_status(event):
     return True
 
 def check_publish_requirements(event):
-    if event.name == '' and event.description == '': 
-            return False
-    if len(Ticket.objects.filter(event=event)) == 0: return False
-    #check for valid payment option too, required, done, not implmemented in this project
-    return True
+    try:
+        if event.name == '' and event.description == '': 
+                return False
+        if len(Ticket.objects.filter(event=event)) == 0: return False
+        #check for valid payment option too, required, done, not implmemented in this project
+        return True
+    except:
+        return False
 
 class event_unpublish(APIView):
     permission_classes = [IsAuthenticated, Is_eventowner]

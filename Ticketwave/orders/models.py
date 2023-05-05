@@ -18,8 +18,8 @@ class Order(models.Model):
 
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    email = models.EmailField()
-    promo_code = models.TextField(null=True)
+    email = models.EmailField(null=True, blank=True)
+    promo_code = models.TextField(null=True, blank=True)
     status = models.CharField(max_length=16, default='pending', choices=status_choices)
     cost = models.IntegerField()
     # changes automatically as added

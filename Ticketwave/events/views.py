@@ -1,5 +1,6 @@
 from .models import Event
 from orders.models import Order
+from tickets.models import Ticket
 from .serializers import event_Serializer, event_private_Serializer, IncrementViewSerializer
 from .filters import eventFilter
 from .pagination import StandardResultsSetPagination
@@ -105,6 +106,22 @@ class event_List(ListAPIView):
                     queryset = queryset.filter(invite_only__in=[True])
                 elif invite_only.lower() == 'false':
                     queryset = queryset.filter(invite_only__in=[False])
+            
+            to_be_announced = self.request.query_params.get(
+                'to_be_announced', None)
+            if to_be_announced is not None:
+                if to_be_announced.lower() == 'true':
+                    queryset = queryset.filter(to_be_announced__in=[True])
+                elif to_be_announced.lower() == 'false':
+                    queryset = queryset.filter(to_be_announced__in=[False])
+            
+            recurring = self.request.query_params.get(
+                'recurring', None)
+            if recurring is not None:
+                if recurring.lower() == 'true':
+                    queryset = queryset.filter(recurring__in=[True])
+                elif recurring.lower() == 'false':
+                    queryset = queryset.filter(recurring__in=[False])
 
         except:
             # pass
@@ -203,6 +220,22 @@ class event_count_query(ListAPIView):
                     queryset = queryset.filter(invite_only__in=[True])
                 elif invite_only.lower() == 'false':
                     queryset = queryset.filter(invite_only__in=[False])
+                    
+            to_be_announced = self.request.query_params.get(
+                'to_be_announced', None)
+            if to_be_announced is not None:
+                if to_be_announced.lower() == 'true':
+                    queryset = queryset.filter(to_be_announced__in=[True])
+                elif to_be_announced.lower() == 'false':
+                    queryset = queryset.filter(to_be_announced__in=[False])
+            
+            recurring = self.request.query_params.get(
+                'recurring', None)
+            if recurring is not None:
+                if recurring.lower() == 'true':
+                    queryset = queryset.filter(recurring__in=[True])
+                elif recurring.lower() == 'false':
+                    queryset = queryset.filter(recurring__in=[False])
 
         except:
             # pass
@@ -228,6 +261,28 @@ class event_increment_view_counter(UpdateAPIView):
         instance.save()
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
+    
+class event_sales_total_and_sales_by_ticket(APIView):
+    def get(self, request, event_id, *args, **kwargs):
+        try:
+            total = 0
+            Tickets = Ticket.objects.filter(event=event_id)
+            for ticket in Tickets:
+                total += ticket.price * ticket.amount
+            return Response(status=200, data={"total sales": total})
+        except:
+            return Response(status=400)
+        
+class event_amount_tickets_sold(APIView):
+    def get(self, request, event_id, *args, **kwargs):
+        try:
+            total = 0
+            Tickets = Ticket.objects.filter(event=event_id)
+            for ticket in Tickets:
+                total += ticket.amount
+            return Response(status=200, data={"tickets sold": total})
+        except:
+            return Response(status=400)
 
 
 class follow_event(APIView):
@@ -256,6 +311,33 @@ class follow_event(APIView):
 
         event.followers.remove(user)
         return Response(status=200)
+    
+class event_tags(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, event_id, tag_id):
+        user = request.user
+        if not user.is_authenticated:
+            return Response(status=401)
+        try:
+            event = Event.objects.get(id=event_id)
+            tag = Event.objects.get(id=tag_id)
+        except:
+            return Response(status=404)
+        event.tags.add(tag)
+        return Response(status=200)
+
+    def delete(self, request, event_id, tag_id):
+        user = request.user
+        if not user.is_authenticated:
+            return Response(status=401)
+        try:
+            event = Event.objects.get(id=event_id)
+            tag = Event.objects.get(id=tag_id)
+        except:
+            return Response(status=404)
+        event.tags.remove(tag)
+        return Response(status=200)
 
 
 class event_follower_count(APIView):
@@ -268,6 +350,16 @@ class event_follower_count(APIView):
 
         follower_count = event.followers.count()
         return Response({'follower_count': follower_count})
+    
+class event_price(APIView):
+    permission_classes = [AllowAny]
+    def get(self, request, event_id):
+        try:
+            ticket = Ticket.objects.filter(event=event_id).first()
+        except Ticket.DoesNotExist:
+            return Response(status=404)
+
+        return Response({'price': ticket.price})
 
 def check_order_status(event):
     orders = Order.objects.filter(event=event)
@@ -277,11 +369,14 @@ def check_order_status(event):
     return True
 
 def check_publish_requirements(event):
-    if event.name == '' and event.description == '': 
-            return False
-    #if len(tickets.objects.filter(event=event)) == 0: return false
-    #check for valid payment option too, required
-    return True
+    try:
+        if event.name == '' and event.description == '': 
+                return False
+        if len(Ticket.objects.filter(event=event)) == 0: return False
+        #check for valid payment option too, required, done, not implmemented in this project
+        return True
+    except:
+        return False
 
 class event_unpublish(APIView):
     permission_classes = [IsAuthenticated, Is_eventowner]
@@ -330,9 +425,42 @@ class event_copy(APIView):
     def get(self, request, event_id):
         try:
             try:
-                event = Event.objects.get(id=event_id)
-                event.pk = None
-                event.save()
+                original_event = Event.objects.get(id=event_id)
+                # event.pk = None
+                # event.save()
+                self.event = Event.objects.create(
+            name=original_event.name,
+            summary=original_event.summary,
+            description=original_event.description,
+            url=original_event.url,
+            online_event=original_event.online_event,
+            hide_start_date=original_event.hide_start_date,
+            hide_end_date=original_event.hide_end_date,
+            free=original_event.free,
+            waitlist=original_event.waitlist,
+            status = original_event.status,
+            view_counter=0,
+            age_restriction=original_event.age_restriction,
+            fully_booked=original_event.fully_booked,
+            published=original_event.published,
+            organizer=original_event.organizer,
+            video_url=original_event.video_url,
+            timezone=original_event.timezone,
+            language=original_event.language,
+            listed=original_event.listed,
+            shareable=original_event.shareable,
+            invite_only=original_event.invite_only,
+            show_remaining=original_event.show_remaining,
+            capacity=original_event.capacity,
+            capacity_is_custom=original_event.capacity_is_custom,
+            start=original_event.start, #datetime.datetime(2004,3,14,12,1),  #"2004-03-15 12:01",
+            end=original_event.end,#datetime.datetime(2005,3,14,12,1), #"2005-03-15 12:01",
+            
+            owner=original_event.owner,
+            category=original_event.category,
+            venue=original_event.venue
+            
+        )
                 return Response({'copy': True}, status=200)
             except:
                 return Response({'copy': False}, status=400)

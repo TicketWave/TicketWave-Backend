@@ -2,7 +2,7 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from django.contrib.auth.models import User
-from .serializers import UsersSerializer
+from users.serializers import UsersSerializer
 from rest_framework import status
 from .models import Users
 from rest_framework.response import Response

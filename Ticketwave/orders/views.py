@@ -21,7 +21,7 @@ class order_List(ListAPIView):
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_class = orderfilter
 
-    ordering_fields = ['cost', 'created', 'first_name', 'last_name', 'status']
+    ordering_fields = ['cost', 'created', 'first_name', 'last_name', 'status', 'event']
 
 
 class order_count_query(ListAPIView):

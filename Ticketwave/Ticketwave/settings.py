@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 from decouple import config
 
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -26,7 +28,7 @@ SECRET_KEY = config('SECRET_KEY') #os.environ.get('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False #os.environ.get('DJANGO_DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['backend']
 
 
 # Application definition
@@ -60,7 +62,11 @@ INSTALLED_APPS = [
     'django_filters',
     'allauth.socialaccount.providers.facebook',
     'corsheaders',
+<<<<<<< HEAD
     'django.contrib.site',
+=======
+    'tags',
+>>>>>>> 0a459a4f18f6cb70f12569837695abae3fc41529
 ]
 
 MIDDLEWARE = [

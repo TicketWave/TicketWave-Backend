@@ -5,6 +5,7 @@ from events.models import Event
 # Create your models here.
 
 class Media(models.Model):
+    id=models.IntegerField(unique=True, blank=False, max_length=100, primary_key= True)
     page_place = models.CharField(max_length=50)
     type = models.CharField(max_length=50)
     url = models.CharField(max_length=150)

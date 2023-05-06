@@ -22,7 +22,7 @@ class event_List(ListAPIView):
     pagination_class = StandardResultsSetPagination
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_class = eventFilter
-    search_fields = ['^name']
+    search_fields = ['name']
     ordering_fields = ['name', 'start', 'end',
                        'created', 'changed', 'view_counter']
 
@@ -405,12 +405,11 @@ class event_publish(APIView):
             start = self.request.data.get('start', None)
             end = self.request.data.get('end', None)
             password = self.request.data.get('password', None)
-            if result and start is not None and end is not None and password is not None:
+            if result and start != None and password != None:
                 serializer = event_Serializer(event, data={
                     'status': 'live',
                     'publish': True,
                     'start': start,
-                    'end': end,
                     'password': password,
                 }, partial=True)
                 if serializer.is_valid():
@@ -428,8 +427,9 @@ class event_copy(APIView):
                 original_event = Event.objects.get(id=event_id)
                 # event.pk = None
                 # event.save()
-                self.event = Event.objects.create(
+                event = Event.objects.create(
             name=original_event.name,
+            type = original_event.type,
             summary=original_event.summary,
             description=original_event.description,
             url=original_event.url,
@@ -458,6 +458,7 @@ class event_copy(APIView):
             
             owner=original_event.owner,
             category=original_event.category,
+            sub_category=original_event.sub_category,
             venue=original_event.venue
             
         )

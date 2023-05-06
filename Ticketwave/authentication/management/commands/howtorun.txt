@@ -1,0 +1,9 @@
+# commands for scripts 
+# python manage.py site_register_db
+# python manage.py google_register_db
+# python manage.py facebook_register_db
+# python manage.py clear_socialsites
+
+should run first three at the database creation
+the fourth command is to reset for any errors that might happen
+make sure to be in the ticketwave dir (that has manage.py)

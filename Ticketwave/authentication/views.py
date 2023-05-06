@@ -8,6 +8,7 @@ from .serializers import CustomRegisterSerializer
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.client import OAuth2Error, OAuth2Client
+from decouple import config
 
 
 class RegistrationView(RegisterView):
@@ -32,7 +33,7 @@ class GoogleConnect(SocialLoginView):
 def google_callback(request):
     params = urlencode(request.GET)
     #print(params)
-    frontend_google_login = 'http://localhost:3000/google/' #os.environ.get('frontend_google_login')
+    frontend_google_login = config('frontend_google_login') #'http://localhost:3000/google/' #
     return redirect(f'{frontend_google_login}{params}')
 
 class FacebookConnect(SocialLoginView):
@@ -46,5 +47,5 @@ class FacebookConnect(SocialLoginView):
 def facebook_callback(request):
     params = urlencode(request.GET)
     #print(params)
-    frontend_facebook_login = 'http://localhost:3000/facebook/' #os.environ.get('frontend_facebook_login')
+    frontend_facebook_login = config('frontend_facebook_login') #'http://localhost:3000/facebook/' #
     return redirect(f'{frontend_facebook_login}{params}')

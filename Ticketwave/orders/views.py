@@ -42,7 +42,7 @@ class order_count_query(ListAPIView):
 
 class order_count_by_event(APIView):
     queryset = Order.objects.all()
-    # permission_classes = [IsAuthenticated, Is_orderowner]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, event, *args, **kwargs):
         count = self.queryset.filter(event=event).count()
@@ -53,14 +53,14 @@ class order_count_by_event(APIView):
 class order_Retrieve(RetrieveAPIView):
     queryset = Order.objects.all()
     serializer_class = order_Serializer
-    # permission_classes = [IsAuthenticated, Is_orderowner]
+    permission_classes = [IsAuthenticated, Is_orderowner]
 
 
 class order_Update(UpdateAPIView):
     queryset = Order.objects.all()
     lookup_field = 'pk'
     serializer_class = order_Serializer
-    # permission_classes = [IsAuthenticated, Is_orderowner]
+    permission_classes = [IsAuthenticated, Is_orderowner]
 
     def put(self, request, *args, **kwargs):
         kwargs['partial'] = True
@@ -70,10 +70,10 @@ class order_Update(UpdateAPIView):
 class order_Destroy(DestroyAPIView):
     queryset = Order.objects.all()
     serializer_class = order_Serializer
-    # permission_classes = [IsAuthenticated, Is_orderowner]
+    permission_classes = [IsAuthenticated, Is_orderowner]
 
 
 class order_Create(CreateAPIView):
     queryset = Order.objects.all()
     serializer_class = order_Serializer
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]

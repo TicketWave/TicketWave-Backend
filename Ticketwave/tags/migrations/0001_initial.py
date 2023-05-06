@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name="Venue",
+            name="Tags",
             fields=[
                 (
                     "id",
@@ -21,13 +21,7 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
-                ("name", models.CharField(max_length=64)),
-                ("country", models.CharField(default="unknown", max_length=32)),
-                ("state", models.CharField(default="unknown", max_length=32)),
-                ("city", models.CharField(default="unknown", max_length=32)),
-                ("address", models.CharField(default="unknown", max_length=120)),
-                ("latitude", models.DecimalField(decimal_places=6, max_digits=9)),
-                ("longitude", models.DecimalField(decimal_places=6, max_digits=9)),
+                ("name", models.CharField(max_length=80)),
             ],
         ),
     ]

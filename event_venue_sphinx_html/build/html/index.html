@@ -1,0 +1,555 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Welcome to events_functional_doc’s documentation! &#8212; events_functional_doc  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="welcome-to-events-functional-doc-s-documentation">
+<h1>Welcome to events_functional_doc’s documentation!<a class="headerlink" href="#welcome-to-events-functional-doc-s-documentation" title="Permalink to this heading">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+<section id="api-reference">
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this heading">¶</a></h2>
+<section id="event-follower-count">
+<h3>event_follower_count<a class="headerlink" href="#event-follower-count" title="Permalink to this heading">¶</a></h3>
+<p>… py:attribute:: permission_classes</p>
+<blockquote>
+<div><p>A list of permission classes for the view. In this case, it is set to <cite>[AllowAny]</cite>, which means that any user can access the view, even if they are not authenticated.</p>
+</div></blockquote>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">get(request,</span> <span class="pre">event_id)</span></code></p>
+<p>Handles <cite>GET</cite> requests to the view.</p>
+<dl class="field-list simple">
+<dt class="field-odd">param request<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The request object.</p>
+</dd>
+<dt class="field-even">type request<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">django.http.HttpRequest</span></code></p>
+</dd>
+<dt class="field-odd">param event_id<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The ID of the event to retrieve the follower count for.</p>
+</dd>
+<dt class="field-even">type event_id<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A response object with a dictionary containing the follower count of the event.</p>
+</dd>
+<dt class="field-even">rtype<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.response.Response</span></code></p>
+</dd>
+</dl>
+<p>When a <cite>GET</cite> request is made to this view with a valid <cite>event_id</cite>, the view attempts to retrieve an <cite>Event</cite> object with the given <cite>event_id</cite>. If no such event exists, the view returns a response with a <cite>404</cite> status code.</p>
+<p>If the event exists, the view retrieves the follower count of the event by calling the <cite>count</cite> method on the <cite>followers</cite> attribute of the <cite>Event</cite> object. The follower count is returned in a dictionary in the response.</p>
+</li>
+</ul>
+</section>
+<section id="follow-event">
+<h3>follow_event<a class="headerlink" href="#follow-event" title="Permalink to this heading">¶</a></h3>
+<p>A Django API view that allows authenticated users to follow an event.</p>
+<p>py:attribute:: permission_classes</p>
+<p>A list of permission classes for the view. In this case, it is set to <cite>[IsAuthenticated]</cite>, which means that only authenticated users can access the view.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">post(request,</span> <span class="pre">event_id)</span></code></p>
+<p>Handles <cite>POST</cite> requests to the view.</p>
+<dl class="field-list simple">
+<dt class="field-odd">param request<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The request object.</p>
+</dd>
+<dt class="field-even">type request<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">django.http.HttpRequest</span></code></p>
+</dd>
+<dt class="field-odd">param event_id<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The ID of the event to follow.</p>
+</dd>
+<dt class="field-even">type event_id<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A response object.</p>
+</dd>
+<dt class="field-even">rtype<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.response.Response</span></code></p>
+</dd>
+</dl>
+<p>When a <cite>POST</cite> request is made to this view with a valid <cite>event_id</cite>, the view checks if the user is authenticated. If the user is not authenticated, the view returns a response with a <cite>401</cite> status code.</p>
+<p>If the user is authenticated, the view attempts to retrieve an <cite>Event</cite> object with the given <cite>event_id</cite>. If no such event exists, the view returns a response with a <cite>404</cite> status code.</p>
+<p>If the event exists, the view adds the user to the event’s followers and returns a response with a <cite>200</cite> status code.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">delete(request,</span> <span class="pre">event_id)</span></code></p>
+<p>Handles <cite>DELETE</cite> requests to the view.</p>
+<dl class="field-list simple">
+<dt class="field-odd">param request<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The request object.</p>
+</dd>
+<dt class="field-even">type request<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">django.http.HttpRequest</span></code></p>
+</dd>
+<dt class="field-odd">param event_id<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The ID of the event to unfollow.</p>
+</dd>
+<dt class="field-even">type event_id<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A response object.</p>
+</dd>
+<dt class="field-even">rtype<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.response.Response</span></code></p>
+</dd>
+</dl>
+<p>When a <cite>DELETE</cite> request is made to this view with a valid <cite>event_id</cite>, the view checks if the user is authenticated. If the user is not authenticated, the view returns a response with a <cite>401</cite> status code.</p>
+<p>If the user is authenticated, the view attempts to retrieve an <cite>Event</cite> object with the given <cite>event_id</cite>. If no such event exists, the view returns a response with a <cite>404</cite> status code.</p>
+<p>If the event exists, the view removes the user from the event’s followers and returns a response with a <cite>200</cite> status code.</p>
+</li>
+</ul>
+</section>
+<section id="event-increment-view-counter">
+<h3>event_increment_view_counter<a class="headerlink" href="#event-increment-view-counter" title="Permalink to this heading">¶</a></h3>
+<p>A Django API view that increments the view counter of an event.</p>
+<p>… py:attribute:: serializer_class</p>
+<blockquote>
+<div><p>The serializer class for the view. In this case, it is set to <cite>IncrementViewSerializer</cite>.</p>
+</div></blockquote>
+<p>… py:attribute:: queryset</p>
+<blockquote>
+<div><p>The queryset for the view. In this case, it is set to <cite>Event.objects.all()</cite>, which means that all events are available for incrementing their view counter.</p>
+</div></blockquote>
+<p>… py:attribute:: permission_classes</p>
+<blockquote>
+<div><p>A list of permission classes for the view. In this case, it is set to <cite>[AllowAny]</cite>, which means that any user can access the view, even if they are not authenticated.</p>
+</div></blockquote>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">patch(request,</span> <span class="pre">*args,</span> <span class="pre">**kwargs)</span></code></p>
+<p>Handles <cite>PATCH</cite> requests to the view.</p>
+<dl class="field-list simple">
+<dt class="field-odd">param request<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The request object.</p>
+</dd>
+<dt class="field-even">type request<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">django.http.HttpRequest</span></code></p>
+</dd>
+<dt class="field-odd">param args<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Additional positional arguments.</p>
+</dd>
+<dt class="field-even">param kwargs<span class="colon">:</span></dt>
+<dd class="field-even"><p>Additional keyword arguments.</p>
+</dd>
+<dt class="field-odd">returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A response object with the serialized data of the updated event.</p>
+</dd>
+<dt class="field-even">rtype<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.response.Response</span></code></p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>When a <cite>PATCH</cite> request is made to this view with a valid event ID in the URL, the view retrieves the corresponding <cite>Event</cite> object and increments its <cite>view_counter</cite> attribute by 1.</dt><dd><p>The updated event is then saved and serialized using the <cite>IncrementViewSerializer</cite> class. The serialized data is returned in the response.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="event-unpublish">
+<h3>event_unpublish<a class="headerlink" href="#event-unpublish" title="Permalink to this heading">¶</a></h3>
+<p>A Django API view that unpublishes an event.</p>
+<p>… py:attribute:: permission_classes</p>
+<blockquote>
+<div><p>A list of permission classes for the view. In this case, it is set to <cite>[IsAuthenticated, Is_eventowner]</cite>, which means that only authenticated users who are also the owner of the event can access the view.</p>
+</div></blockquote>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">get(request,</span> <span class="pre">event_id)</span></code></p>
+<p>Handles <cite>GET</cite> requests to the view.</p>
+<dl class="field-list simple">
+<dt class="field-odd">param request<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The request object.</p>
+</dd>
+<dt class="field-even">type request<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">django.http.HttpRequest</span></code></p>
+</dd>
+<dt class="field-odd">param event_id<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The ID of the event to unpublish.</p>
+</dd>
+<dt class="field-even">type event_id<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A response object with a dictionary indicating whether the event was unpublished or not.</p>
+</dd>
+<dt class="field-even">rtype<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.response.Response</span></code></p>
+</dd>
+</dl>
+<p>When a <cite>GET</cite> request is made to this view with a valid <cite>event_id</cite>, the view attempts to retrieve an <cite>Event</cite> object with the given <cite>event_id</cite>. If no such event exists or if an error occurs, the view returns a response with a <cite>400</cite> status code.</p>
+<p>If the event exists, the view calls the <cite>check_order_status</cite> function with the <cite>Event</cite> object as an argument. If the result of this function is <cite>True</cite>, the view updates the <cite>status</cite> and <cite>publish</cite> attributes of the <cite>Event</cite> object to <cite>‘canceled’</cite> and <cite>False</cite>, respectively, using a serializer. The updated event is then saved and a response with a dictionary indicating that the event was unpublished is returned.</p>
+<p>If the result of the <cite>check_order_status</cite> function is not <cite>True</cite>, a response with a dictionary indicating that the event was not unpublished is returned.</p>
+</li>
+</ul>
+</section>
+<section id="event-publish">
+<h3>event_publish<a class="headerlink" href="#event-publish" title="Permalink to this heading">¶</a></h3>
+<p>A Django API view that publishes an event.</p>
+<p>… py:attribute:: permission_classes</p>
+<blockquote>
+<div><p>A list of permission classes for the view. In this case, it is set to <cite>[IsAuthenticated, Is_eventowner]</cite>, which means that only authenticated users who are also the owner of the event can access the view.</p>
+</div></blockquote>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">get(request,</span> <span class="pre">event_id)</span></code></p>
+<p>Handles <cite>GET</cite> requests to the view.</p>
+<dl class="field-list simple">
+<dt class="field-odd">param request<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The request object.</p>
+</dd>
+<dt class="field-even">type request<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">django.http.HttpRequest</span></code></p>
+</dd>
+<dt class="field-odd">param event_id<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The ID of the event to publish.</p>
+</dd>
+<dt class="field-even">type event_id<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A response object with a dictionary indicating whether the event was published or not.</p>
+</dd>
+<dt class="field-even">rtype<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.response.Response</span></code></p>
+</dd>
+</dl>
+<p>When a <cite>GET</cite> request is made to this view with a valid <cite>event_id</cite>, the view attempts to retrieve an <cite>Event</cite> object with the given <cite>event_id</cite>. If no such event exists or if an error occurs, the view returns a response with a <cite>400</cite> status code.</p>
+<p>If the event exists, the view calls the <cite>check_publish_requirements</cite> function with the <cite>Event</cite> object as an argument. The view also retrieves several values from the request data: <cite>‘published’</cite>, <cite>‘published’</cite>, and <cite>‘password’</cite>.</p>
+<p>If all these values are not <cite>None</cite> and if the result of the <cite>check_publish_requirements</cite> function is <cite>True</cite>, the view updates several attributes of the <cite>Event</cite> object using a serializer. The updated attributes are <cite>‘status’</cite>, <cite>‘publish’</cite>, <cite>‘start’</cite>, <cite>‘end’</cite>, and <cite>‘password’</cite>. The updated values are <cite>‘live’</cite>, <cite>True</cite>, and the values retrieved from the request data, respectively. The updated event is then saved and a response with a dictionary indicating that the event was published is returned.</p>
+<p>If any of these values are <cite>None</cite> or if the result of the <cite>check_publish_requirements</cite> function is not <cite>True</cite>, a response with a dictionary indicating that</p>
+</li>
+</ul>
+</section>
+<section id="event-copy">
+<h3>event_copy<a class="headerlink" href="#event-copy" title="Permalink to this heading">¶</a></h3>
+<p>A Django API view that creates a copy of an event.</p>
+<p>… py:attribute:: permission_classes</p>
+<blockquote>
+<div><p>A list of permission classes for the view. In this case, it is set to <cite>[IsAuthenticated, Is_eventowner]</cite>, which means that only authenticated users who are also the owner of the event can access the view.</p>
+</div></blockquote>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">get(request,</span> <span class="pre">event_id)</span></code></p>
+<p>Handles <cite>GET</cite> requests to the view.</p>
+<dl class="field-list simple">
+<dt class="field-odd">param request<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The request object.</p>
+</dd>
+<dt class="field-even">type request<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">django.http.HttpRequest</span></code></p>
+</dd>
+<dt class="field-odd">param event_id<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The ID of the event to copy.</p>
+</dd>
+<dt class="field-even">type event_id<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A response object with a dictionary indicating whether the event was copied or not.</p>
+</dd>
+<dt class="field-even">rtype<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.response.Response</span></code></p>
+</dd>
+</dl>
+<p>When a <cite>GET</cite> request is made to this view with a valid <cite>event_id</cite>, the view attempts to retrieve an <cite>Event</cite> object with the given <cite>event_id</cite>. If no such event exists or if an error occurs, the view returns a response with a <cite>400</cite> status code and a dictionary indicating that the event was not copied.</p>
+<p>If the event exists, the view creates a copy of the <cite>Event</cite> object by setting its primary key (<cite>pk</cite>) to <cite>None</cite> and calling its <cite>save</cite> method. This creates a new <cite>Event</cite> object in the database with the same data as the original <cite>Event</cite> object. The view then returns a response with a dictionary indicating that the event was copied.</p>
+</li>
+</ul>
+</section>
+<section id="check-order-status-event">
+<h3>check_order_status(event)<a class="headerlink" href="#check-order-status-event" title="Permalink to this heading">¶</a></h3>
+<p>Checks if an event has any pending or completed orders.</p>
+<dl class="field-list simple">
+<dt class="field-odd">param event<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The event to check. :type event: :class:Event :returns: False if the event has any pending or completed orders, True otherwise. :rtype: bool</p>
+</dd>
+</dl>
+<p>This function retrieves all Order objects associated with the given event by calling the filter method on the Order model’s manager with the event argument set to the given event.</p>
+<p>The function then iterates over the retrieved Order objects and checks their status attribute. If any of the Order objects have a status of ‘pending’ or ‘completed’, the function returns False.</p>
+<p>If none of the Order objects have a status of ‘pending’ or ‘completed’, the function returns True.</p>
+</section>
+<section id="check-publish-requirements-event">
+<h3>check_publish_requirements(event)<a class="headerlink" href="#check-publish-requirements-event" title="Permalink to this heading">¶</a></h3>
+<p>Checks if an event meets the requirements for being published.</p>
+<dl class="field-list simple">
+<dt class="field-odd">param event<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The event to check. :type event: :class:Event :returns: False if the event does not meet the requirements for being published, True otherwise. :rtype: bool</p>
+</dd>
+</dl>
+<p>This function checks if the given event has a non-empty name and description. If either of these attributes is an empty string, the function returns False.</p>
+<p>it also checks that the event has a ticket created for it.</p>
+</section>
+</section>
+</section>
+<section id="event-price">
+<h1>event_price<a class="headerlink" href="#event-price" title="Permalink to this heading">¶</a></h1>
+<p>This class defines an API view for retrieving the ticket prices for a given event.</p>
+<p>The view allows any user to access it and only supports GET requests.</p>
+<section id="get-request">
+<h2>GET request<a class="headerlink" href="#get-request" title="Permalink to this heading">¶</a></h2>
+<p>Sends a GET request to retrieve the ticket prices for a given event.</p>
+<dl class="field-list simple">
+<dt class="field-odd">param event_id<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The ID of the event to retrieve ticket prices for.</p>
+</dd>
+<dt class="field-even">type event_id<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A JSON response containing the ticket prices for the given event, or an error response if the request fails.</p>
+</dd>
+<dt class="field-even">rtype<span class="colon">:</span></dt>
+<dd class="field-even"><p>JSON response</p>
+</dd>
+</dl>
+<p>Example usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Send a GET request to retrieve ticket prices for event with ID 1</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/event_price/1/&#39;</span><span class="p">)</span>
+<span class="c1"># Check the response status code</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span>  <span class="c1"># 200</span>
+<span class="c1"># Parse the JSON response</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<span class="c1"># Print the ticket prices</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;ticket_price&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="event-sales-total">
+<h1>event_sales_total<a class="headerlink" href="#event-sales-total" title="Permalink to this heading">¶</a></h1>
+<p>This class defines an API view for retrieving the total sales for a given event.</p>
+<p>The view only supports GET requests.</p>
+<section id="id1">
+<h2>GET request<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
+<p>Sends a GET request to retrieve the total sales for a given event.</p>
+<dl class="field-list simple">
+<dt class="field-odd">param event_id<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The ID of the event to retrieve total sales for.</p>
+</dd>
+<dt class="field-even">type event_id<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A JSON response containing the total sales for the given event, or an error response if the request fails.</p>
+</dd>
+<dt class="field-even">rtype<span class="colon">:</span></dt>
+<dd class="field-even"><p>JSON response</p>
+</dd>
+</dl>
+<p>Example usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Send a GET request to retrieve total sales for event with ID 1</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/event_sales_total/1/&#39;</span><span class="p">)</span>
+<span class="c1"># Check the response status code</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span>  <span class="c1"># 200</span>
+<span class="c1"># Parse the JSON response</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<span class="c1"># Print the total sales</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;total sales&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="sales-by-ticket">
+<h1>sales_by_ticket<a class="headerlink" href="#sales-by-ticket" title="Permalink to this heading">¶</a></h1>
+<p>This class defines an API view for retrieving the sales and amount of tickets sold by ticket type for a given event.</p>
+<p>The view only supports GET requests.</p>
+<section id="id2">
+<h2>GET request<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<p>Sends a GET request to retrieve the sales and amount of tickets sold by ticket type for a given event.</p>
+<dl class="field-list simple">
+<dt class="field-odd">param event_id<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The ID of the event to retrieve sales and amount of tickets sold by ticket type for.</p>
+</dd>
+<dt class="field-even">type event_id<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A JSON response containing the sales and amount of tickets sold by ticket type for the given event, or an error response if the request fails.</p>
+</dd>
+<dt class="field-even">rtype<span class="colon">:</span></dt>
+<dd class="field-even"><p>JSON response</p>
+</dd>
+</dl>
+<p>Example usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Send a GET request to retrieve sales and amount of tickets sold by ticket type for event with ID 1</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/sales_by_ticket/1/&#39;</span><span class="p">)</span>
+<span class="c1"># Check the response status code</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span>  <span class="c1"># 200</span>
+<span class="c1"># Parse the JSON response</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<span class="c1"># Print the sales and amount of tickets sold by ticket type</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;sales&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;amount&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="event-amount-tickets-sold">
+<h1>event_amount_tickets_sold<a class="headerlink" href="#event-amount-tickets-sold" title="Permalink to this heading">¶</a></h1>
+<p>This class defines an API view for retrieving the total amount of tickets sold for a given event.</p>
+<p>The view only supports GET requests.</p>
+<section id="id3">
+<h2>GET request<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<p>Sends a GET request to retrieve the total amount of tickets sold for a given event.</p>
+<dl class="field-list simple">
+<dt class="field-odd">param event_id<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The ID of the event to retrieve the total amount of tickets sold for.</p>
+</dd>
+<dt class="field-even">type event_id<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A JSON response containing the total amount of tickets sold for the given event, or an error response if the request fails.</p>
+</dd>
+<dt class="field-even">rtype<span class="colon">:</span></dt>
+<dd class="field-even"><p>JSON response</p>
+</dd>
+</dl>
+<p>Example usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Send a GET request to retrieve the total amount of tickets sold for event with ID 1</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/event_amount_tickets_sold/1/&#39;</span><span class="p">)</span>
+<span class="c1"># Check the response status code</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span>  <span class="c1"># 200</span>
+<span class="c1"># Parse the JSON response</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<span class="c1"># Print the total amount of tickets sold</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;tickets sold&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="get-location-info">
+<h1>get_location_info<a class="headerlink" href="#get-location-info" title="Permalink to this heading">¶</a></h1>
+<p>This function takes in a latitude and longitude and returns the city, state, and country of the location.</p>
+<dl class="field-list simple">
+<dt class="field-odd">param latitude<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The latitude of the location.</p>
+</dd>
+<dt class="field-even">type latitude<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+<dt class="field-odd">param longitude<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The longitude of the location.</p>
+</dd>
+<dt class="field-even">type longitude<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+<dt class="field-odd">returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A tuple containing the city, state, and country of the location.</p>
+</dd>
+<dt class="field-even">rtype<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple</p>
+</dd>
+</dl>
+<p>Example usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">geopy.geocoders</span> <span class="kn">import</span> <span class="n">Nominatim</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">city</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">country</span> <span class="o">=</span> <span class="n">get_location_info</span><span class="p">(</span><span class="mf">51.5074</span><span class="p">,</span> <span class="mf">0.1278</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">city</span><span class="p">)</span>
+<span class="go">London</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+<span class="go">England</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">country</span><span class="p">)</span>
+<span class="go">United Kingdom</span>
+</pre></div>
+</div>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">events_functional_doc</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, ziad amr.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

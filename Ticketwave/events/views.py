@@ -262,7 +262,7 @@ class event_increment_view_counter(UpdateAPIView):
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
     
-class event_sales_total_and_sales_by_ticket(APIView):
+class event_sales_total(APIView):
     def get(self, request, event_id, *args, **kwargs):
         try:
             total = 0
@@ -270,6 +270,19 @@ class event_sales_total_and_sales_by_ticket(APIView):
             for ticket in Tickets:
                 total += ticket.price * ticket.amount
             return Response(status=200, data={"total sales": total})
+        except:
+            return Response(status=400)
+        
+class sales_by_ticket(APIView):
+    def get(self, request, event_id, *args, **kwargs):
+        try:
+            sales = {}
+            amount = {}
+            Tickets = Ticket.objects.filter(event=event_id)
+            for ticket in Tickets:
+                amount[ticket.type] = ticket.amount
+                sales[ticket.type] = ticket.price * ticket.amount
+            return Response(status=200, data={"sales": sales, "amount": amount})
         except:
             return Response(status=400)
         

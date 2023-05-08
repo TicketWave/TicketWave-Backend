@@ -8,16 +8,18 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ("events", "0001_initial"),
-        ("discounts", "0001_initial"),
+        ("orders", "0001_initial"),
+        ("tickets", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name="discounts",
-            name="event_id",
+            model_name="order",
+            name="ticket",
             field=models.ForeignKey(
-                on_delete=django.db.models.deletion.CASCADE, to="events.event"
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="order",
+                to="tickets.ticket",
             ),
         ),
     ]

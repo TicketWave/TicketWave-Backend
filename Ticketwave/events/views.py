@@ -277,10 +277,12 @@ class sales_by_ticket(APIView):
     def get(self, request, event_id, *args, **kwargs):
         try:
             sales = {}
+            amount = {}
             Tickets = Ticket.objects.filter(event=event_id)
             for ticket in Tickets:
+                amount[ticket.type] = ticket.amount
                 sales[ticket.type] = ticket.price * ticket.amount
-            return Response(status=200, data={"sales": sales})
+            return Response(status=200, data={"sales": sales, "amount": amount})
         except:
             return Response(status=400)
         

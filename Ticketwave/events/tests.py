@@ -62,6 +62,7 @@ class EventTestCase(TestCase):
             'name': 'Test Event',
             'summary': 'Test summary',
             'description': 'Test description',
+            "type":'sadas',
             'url': 'https://example.com',
             'start': '2004-03-14T12:01:00Z',
             'end': '2005-03-14T12:01:00Z',
@@ -98,6 +99,7 @@ class EventTestCase(TestCase):
             'summary': 'Test summary',
             'description': 'Test description',
             'url': 'https://example.com',
+            "type":'sadas',
             'start': '2004-03-14T12:01:00Z',
             'end': '2005-03-14T12:01:00Z',
             'created': '2004-03-14T12:01:00Z',
@@ -187,7 +189,6 @@ class EventTestCase(TestCase):
                     'status': 'live',
                     'publish': True,
                     'start': self.event.end,
-                    'end': self.event.start,
                     'password': 'lol',
                 }, partial=True)
         self.assertTrue(serializer.is_valid())

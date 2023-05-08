@@ -368,11 +368,13 @@ class event_price(APIView):
     permission_classes = [AllowAny]
     def get(self, request, event_id):
         try:
-            ticket = Ticket.objects.filter(event=event_id).first()
-        except Ticket.DoesNotExist:
-            return Response(status=404)
-
-        return Response({'price': ticket.price})
+            ticket_price = {}
+            Tickets = Ticket.objects.filter(event=event_id)
+            for ticket in Tickets:
+                ticket_price[ticket.type] = ticket_price.get(ticket.type, 0) 
+            return Response(status=200, data={"ticket_price": ticket_price,})
+        except:
+            return Response(status=400)
 
 def check_order_status(event):
     orders = Order.objects.filter(event=event)

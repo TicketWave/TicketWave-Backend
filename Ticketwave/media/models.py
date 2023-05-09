@@ -4,6 +4,7 @@ from events.models import Event
 
 # Create your models here.
 
+
 class Media(models.Model):
     page_place = models.CharField(max_length=50)
     type = models.CharField(max_length=50)
@@ -12,8 +13,8 @@ class Media(models.Model):
     height = models.IntegerField()
     topleft_crop_x = models.IntegerField()
     topleft_crop_y = models.IntegerField()
-    
-    event_id = models.ForeignKey(Event, on_delete=models.CASCADE) 
-    
+
+    event_id = models.ForeignKey(Event, on_delete=models.CASCADE)
+
     def __str__(self):
         return self.url

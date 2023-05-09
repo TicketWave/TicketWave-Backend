@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     "discounts",
     "orders",
     "events",
-    "pricing",
     "users",
     "venues",
     "media",

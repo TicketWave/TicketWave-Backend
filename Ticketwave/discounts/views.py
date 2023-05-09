@@ -9,7 +9,7 @@ import datetime
 class manageDiscounts(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = DiscountsSerializer
     queryset = Discounts.objects.all()
-    lookup_field = "id"
+    lookup_field = "code"
 
 
 class createDiscount(generics.CreateAPIView):
@@ -25,7 +25,7 @@ def listDiscountsByEvent(request, event_id):
 
 
 @api_view(("GET",))
-def checkDiscount(discount_code):
+def checkDiscount(request, discount_code):
     try:
         discount = Discounts.objects.get(code=discount_code)
         serializer = DiscountsSerializer(discount)

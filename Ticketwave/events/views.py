@@ -372,14 +372,11 @@ class event_price(APIView):
 
     def get(self, request, event_id):
         try:
-            ticket_price = {}
-            Tickets = Ticket.objects.filter(event=event_id)
-            for ticket in Tickets:
-                ticket_price[ticket.name] = ticket_price.get(ticket.name, 0)
+            Tickets = Ticket.objects.get(event=event_id)
             return Response(
                 status=200,
                 data={
-                    "ticket_price": ticket_price,
+                    "ticket_price": Tickets.price,
                 },
             )
         except:

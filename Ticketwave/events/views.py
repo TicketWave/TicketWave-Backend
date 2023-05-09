@@ -277,9 +277,9 @@ class sales_by_ticket(APIView):
             amount = {}
             Tickets = Ticket.objects.filter(event=event_id)
             for ticket in Tickets:
-                amount[ticket.type] = amount.get(ticket.type, 0) + ticket.amount
-                sales[ticket.type] = (
-                    sales.get(ticket.type, 0) + ticket.price * ticket.amount
+                amount[ticket.name] = amount.get(ticket.name, 0) + ticket.amount
+                sales[ticket.name] = (
+                    sales.get(ticket.name, 0) + ticket.price * ticket.amount
                 )
             return Response(status=200, data={"sales": sales, "amount": amount})
         except:
@@ -375,7 +375,7 @@ class event_price(APIView):
             ticket_price = {}
             Tickets = Ticket.objects.filter(event=event_id)
             for ticket in Tickets:
-                ticket_price[ticket.type] = ticket_price.get(ticket.type, 0)
+                ticket_price[ticket.name] = ticket_price.get(ticket.name, 0)
             return Response(
                 status=200,
                 data={

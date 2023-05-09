@@ -3,52 +3,45 @@ from django_filters import rest_framework as filters
 
 
 class eventFilter(filters.FilterSet):
-
     class Meta:
         model = Event
 
         fields = {
-            'id': ['exact', 'in'],
-            'name': ['exact'],
-            'owner': ['exact'],
-            'category': ['exact'],
-            'view_counter': ['exact', 'gte', 'lte'],
-            'status': ['exact'],
-            'timezone': ['exact'],
-            'language': ['exact'],
-            'organizer': ['exact'],
-
-            'start': ['exact', 'gte', 'lte'],
-            'end': ['exact', 'gte', 'lte'],
-            'created': ['exact', 'gte', 'lte'],
-            'changed': ['exact', 'gte', 'lte'],
-            
-            'recurring_end_day': ['exact'],
-            'recurring_start_day': ['exact'],
-            'recurring_end_month': ['exact'],
-            'recurring_start_month': ['exact'],
-            'recurring_end_year': ['exact'],
-            'recurring_start_year': ['exact'],
-            'recurring_frequency' : ['exact'],
-
+            "id": ["exact", "in"],
+            "name": ["exact"],
+            "owner": ["exact"],
+            "category": ["exact"],
+            "view_counter": ["exact", "gte", "lte"],
+            "status": ["exact"],
+            "timezone": ["exact"],
+            "language": ["exact"],
+            "organizer": ["exact"],
+            "start": ["exact", "gte", "lte"],
+            "end": ["exact", "gte", "lte"],
+            "created": ["exact", "gte", "lte"],
+            "changed": ["exact", "gte", "lte"],
+            "recurring_end_day": ["exact"],
+            "recurring_start_day": ["exact"],
+            "recurring_end_month": ["exact"],
+            "recurring_start_month": ["exact"],
+            "recurring_end_year": ["exact"],
+            "recurring_start_year": ["exact"],
+            "recurring_frequency": ["exact"],
             #'category': ['exact', 'in'],
             #'category__parent_category': ['exact'],
-            'category': ['exact'],
-            'sub_category': ['exact'],
-            'type': ['exact'],
-
-            'venue': ['exact', 'in'],
-            'venue__name': ['exact'],
-            'venue__city': ['exact'],
-            'venue__state': ['exact'],
-            'venue__country': ['exact'],
-            'venue__address': ['exact'],
-            'venue__latitude': ['gte', 'lte'],
-            'venue__longitude': ['gte', 'lte'],
-            
-            'tags__name': ['exact', 'in'],
-            'tags': ['exact', 'in'],
-
+            "category": ["exact"],
+            "sub_category": ["exact"],
+            "type": ["exact"],
+            "venue": ["exact", "in"],
+            "venue__name": ["exact"],
+            "venue__city": ["exact"],
+            "venue__state": ["exact"],
+            "venue__country": ["exact"],
+            "venue__address": ["exact"],
+            "venue__latitude": ["gte", "lte"],
+            "venue__longitude": ["gte", "lte"],
+            "tags__name": ["exact", "in"],
+            "tags": ["exact"],
         }
 
         # 'field1': ['in'], for multiple values example ?field1__in=value1,value2,value3

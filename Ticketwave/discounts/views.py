@@ -24,11 +24,29 @@ def listDiscountsByEvent(request, event_id):
     return Response(serializer.data)
 
 
+@api_view(("GET",))
+def checkDiscount(discount_code):
+    try:
+        discount = Discounts.objects.get(code=discount_code)
+        serializer = DiscountsSerializer(discount)
+        return Response(serializer.data, status=200)
+    except:
+        return Response(status=400)
+
+
+@api_view(("GET",))
 def applyDiscount(discount_code):
-    discount = Discounts.objects.get(code=discount_code)
-    if discount.quantity_available > 0 and discount.end_date >= datetime.datetime.now():
-        discount.quantity_sold += 1
-        discount.quantity_available -= 1
-        discount.save()
-    else:
-        return None
+    try:
+        discount = Discounts.objects.get(code=discount_code)
+        if (
+            discount.quantity_available > 0
+            and discount.end_date >= datetime.datetime.now()
+        ):
+            discount.quantity_sold += 1
+            discount.quantity_available -= 1
+            discount.save()
+            return Response(status=200)
+        else:
+            return None
+    except:
+        return Response(status=400)

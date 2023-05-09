@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Discounts &#8212; categories_discounts  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Categories" href="../categories/index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="discounts">
+<h1>Discounts<a class="headerlink" href="#discounts" title="Permalink to this heading">¶</a></h1>
+<section id="api-documentation">
+<h2>API Documentation<a class="headerlink" href="#api-documentation" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="manageDiscounts">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">manageDiscounts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">generics.RetrieveUpdateDestroyAPIView</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#manageDiscounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>API view for managing a discount.</p>
+<p>This class-based view allows retrieving, updating, and deleting a discount based on its ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>serializer_class</strong> – The serializer class to use for the discount.</p></li>
+<li><p><strong>queryset</strong> – The queryset containing all discounts.</p></li>
+<li><p><strong>lookup_field</strong> – The field to use as the lookup parameter when retrieving a discount.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="createDiscount">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">createDiscount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">generics.CreateAPIView</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#createDiscount" title="Permalink to this definition">¶</a></dt>
+<dd><p>API view for creating a discount.</p>
+<p>This class-based view allows creating a new discount.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>serializer_class</strong> – The serializer class to use for the discount.</p></li>
+<li><p><strong>queryset</strong> – The queryset containing all discounts.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="listDiscountsByEvent">
+<span class="sig-name descname"><span class="pre">listDiscountsByEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#listDiscountsByEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve a list of discounts by event ID.</p>
+<p>This function-based view retrieves a list of discounts associated with the given event ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> – The HTTP request object.</p></li>
+<li><p><strong>event_id</strong> (<em>int</em>) – The ID of the event to filter discounts by.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A response containing the serialized data of the discounts.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="applyDiscount">
+<span class="sig-name descname"><span class="pre">applyDiscount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">discount_code</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#applyDiscount" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply a discount with the given discount code.</p>
+<p>This function applies a discount to a purchase based on the provided discount code.
+It updates the quantity sold and available if the discount is valid and available.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>discount_code</strong> (<em>str</em>) – The discount code to apply.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None if the discount is not valid or available, otherwise, no explicit return value.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="model-documentation">
+<h2>Model Documentation<a class="headerlink" href="#model-documentation" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="Discounts">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Discounts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">models.Model</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Discounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Model for discounts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>code</strong> – The discount code. (CharField, max_length=20, unique=True, blank=False, primary_key=True)</p></li>
+<li><p><strong>type</strong> – The type of the discount. (CharField, max_length=255)</p></li>
+<li><p><strong>end_date</strong> – The end date of the discount. (DateTimeField, blank=False)</p></li>
+<li><p><strong>start_date</strong> – The start date of the discount. (DateTimeField, blank=False)</p></li>
+<li><p><strong>percent_off</strong> – The percentage off for the discount. (FloatField)</p></li>
+<li><p><strong>quantity_available</strong> – The quantity of the discount available. (IntegerField)</p></li>
+<li><p><strong>quantity_sold</strong> – The quantity of the discount sold. (IntegerField)</p></li>
+<li><p><strong>event_id</strong> – The foreign key to the Event model. (ForeignKey to Event, on_delete=models.CASCADE)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">categories_discounts</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../categories/index.html">Categories</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Discounts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#api-documentation">API Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#model-documentation">Model Documentation</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../categories/index.html" title="previous chapter">Categories</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Ahmed Gamal.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.0.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="../_sources/discounts/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

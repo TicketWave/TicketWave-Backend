@@ -438,10 +438,11 @@ class event_publish(APIView):
         try:
             event = Event.objects.get(id=event_id)
             result = check_publish_requirements(event)
-            start = self.request.data.get("start", None)
-            end = self.request.data.get("end", None)
-            password = self.request.data.get("password", None)
-            if result and start != None and password != None:
+            if not result:
+                return Response({"published": False}, status=200)
+            start = self.request.data.get("start", event.start)
+            password = self.request.data.get("password", "")
+            if result:
                 serializer = event_Serializer(
                     event,
                     data={
@@ -454,9 +455,7 @@ class event_publish(APIView):
                 )
                 if serializer.is_valid():
                     serializer.save()
-                return Response({"published": True}, status=200)
-            else:
-                return Response({"published": False}, status=400)
+            return Response({"published": True}, status=200)
         except:
             return Response(status=400)
 

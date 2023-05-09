@@ -14,7 +14,6 @@ class Ticket(models.Model):
     StartTime = models.DateTimeField()
     SalesEnd = models.DateTimeField()
     EndTime = models.DateTimeField()
-    CodeName = models.CharField(max_length=255)
     RevealHidden = models.BooleanField()
     Discount = models.ForeignKey(Discounts, on_delete=models.CASCADE, blank=True)
     PromoStart = models.DateTimeField(blank=True)

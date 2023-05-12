@@ -30,12 +30,19 @@ pipeline {
                 '''
             }
         }
-        stage('Docker compose') {
+        stage('Docker compose down') {
             steps {
                 sh '''
                 cd /home/omar
 		docker-compose down
-		sudo docker-compose up -d
+                '''
+            }
+        }
+        stage('Docker compose up') {
+            steps {
+                sh '''
+                cd /home/omar
+		sudo docker-compose up -d --build
                 '''
             }
         }

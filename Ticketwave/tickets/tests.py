@@ -1,10 +1,12 @@
 from django.test import TestCase
 from .models import Ticket
-from .serlializers import TicketSerializer
+import json
+import requests
 
 
 
 # Create your tests here.
+
 
 class TicketTestCase(TestCase):
     def setUp(self):

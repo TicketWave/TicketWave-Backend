@@ -14,7 +14,6 @@ class TicketSerializer(serializers.ModelSerializer):
             "StartTime",
             "SalesEnd",
             "EndTime",
-            "CodeName",
             "RevealHidden",
             "Discount",
             "PromoStart",

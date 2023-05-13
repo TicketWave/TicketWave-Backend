@@ -141,14 +141,14 @@ class EventTestCase(TestCase):
     def test_event_Serizalizer(self):
         # Serialize the MyModel instance
         event1 = Event.objects.get(name="Test Event")
-        serializer = event_Serializer(event1)
+        serializer = event_Serializer(data=self.event_expected_data)
         # Check that the serialized data is correct
         self.assertTrue(serializer.is_valid())
 
     def test_event_private_Serizalizer(self):
         # Serialize the Event instance
         event1 = Event.objects.get(name="Test Event")
-        serializer = event_private_Serializer(event1)
+        serializer = event_private_Serializer(data=self.event_private_expected_data)
         # Check that the serialized data is correct
         self.assertTrue(serializer.is_valid())
 
